@@ -6,4 +6,5 @@ return {
   --   end,
   -- },
   "christoomey/vim-tmux-navigator",
+  enabled = false,
 }
