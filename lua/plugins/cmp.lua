@@ -14,5 +14,10 @@ return {
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
       ["<Tab>"] = cmp.mapping.confirm({ select = true }),
     })
+
+    opts.sources = cmp.config.sources({
+      { name = "nvim_lsp" },
+      { name = "path" },
+    })
   end,
 }
