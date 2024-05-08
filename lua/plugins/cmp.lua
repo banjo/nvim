@@ -15,11 +15,11 @@ return {
       ["<Tab>"] = cmp.mapping.confirm({ select = true }),
     })
 
-    -- use all sources but path
+    -- use all sources but buffer to remove boring completions
     local new_sources = {}
 
     for _, source in ipairs(opts.sources) do
-      if source.name ~= "path" then
+      if source.name ~= "buffer" then
         table.insert(new_sources, source)
       end
     end
