@@ -14,4 +14,33 @@ return {
       },
     },
   },
+  keys = {
+    {
+      "<leader>fE",
+      false,
+    },
+    {
+      "<leader>fe",
+      function()
+        require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+      end,
+      desc = "[f]ind [explorer]",
+    },
+    { "<leader>E", false },
+    { "<leader>e", "<leader>fe", desc = "[e]xplorer", remap = true },
+    {
+      "<leader>ge",
+      function()
+        require("neo-tree.command").execute({ source = "git_status", toggle = true })
+      end,
+      desc = "[g]it [e]xplorer",
+    },
+    {
+      "<leader>be",
+      function()
+        require("neo-tree.command").execute({ source = "buffers", toggle = true })
+      end,
+      desc = "[b]uffer [e]xplorer",
+    },
+  },
 }

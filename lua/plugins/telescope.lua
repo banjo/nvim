@@ -32,7 +32,7 @@ return {
             previewer = false,
           }))
         end,
-        desc = "search buffer",
+        desc = "Search buffer",
       },
       {
         "<leader>s/",
