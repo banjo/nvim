@@ -15,9 +15,15 @@ return {
       ["<Tab>"] = cmp.mapping.confirm({ select = true }),
     })
 
-    opts.sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "path" },
-    })
+    -- use all sources but path
+    local new_sources = {}
+
+    for _, source in ipairs(opts.sources) do
+      if source.name ~= "path" then
+        table.insert(new_sources, source)
+      end
+    end
+
+    opts.sources = new_sources
   end,
 }
