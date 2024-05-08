@@ -3,12 +3,19 @@ return {
   event = "VeryLazy",
   config = function()
     local model = "gpt-4-turbo"
+    local close_key = "q"
+
     local config = {
       openai_params = { model = model },
       openai_edit_params = { model = model },
+      edit_with_instructions = {
+        keymaps = {
+          close = close_key,
+        },
+      },
       chat = {
         keymaps = {
-          close = "q",
+          close = close_key,
         },
       },
     }
