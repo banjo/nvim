@@ -13,23 +13,16 @@ return {
     },
     keys = {
       {
-        "<leader>sf",
+        "<leader>se",
         ":Telescope file_browser file_browser path=%:p:h=%:p:h<cr>",
-        desc = "Search files",
+        desc = "[s]earch [e]xplorer files",
       },
       {
         "<leader>fr",
         function()
           telescope.oldfiles({ only_cwd = true })
         end,
-        desc = "Find recent files",
-      },
-      {
-        "<leader><leader>",
-        function()
-          telescope.oldfiles({ only_cwd = true })
-        end,
-        desc = "Find recent files",
+        desc = "[f]ind [r]ecent files",
       },
       {
         "<leader>/",
@@ -39,7 +32,7 @@ return {
             previewer = false,
           }))
         end,
-        desc = "Search in current buffer",
+        desc = "search buffer",
       },
       {
         "<leader>s/",
@@ -49,7 +42,74 @@ return {
             prompt_title = "Live Grep in Open Files",
           })
         end,
-        desc = "Live grep in open files",
+        desc = "[s]earch open files",
+      },
+      -- Remove or rename default commands
+      { "<leader>ff", LazyVim.telescope("files", { cwd = false }), desc = "[f]ind [f]iles" },
+      { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "[f]ind [g]it files" },
+      { "<leader>fF", false },
+      { "<leader>fG", false },
+      { "<leader>fG", false },
+      { "<leader>fR", false },
+      { "<leader>sG", false },
+      { "<leader>sg", LazyVim.telescope("live_grep", { cwd = false }), desc = "[s]earch [g]rep" },
+      { "<leader>fc", LazyVim.telescope.config_files(), desc = "[f]ind [c]onfig files" },
+      { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[f]ind [b]uffer" },
+      -- search
+      { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "[s]earch registers" },
+      { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "[s]earch [a]uto Commands" },
+      { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "[s]earch [b]uffer" },
+      { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "[s]earch [c]ommand History" },
+      { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "[s]earch [C]ommands" },
+      { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "[s]earch [d]ocument Diagnostics" },
+      { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "[s]earch Workspace Diagnostics" },
+      { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "[s]earch [h]elp pages" },
+      { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "[s]earch Highlight groups" },
+      { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "[s]earch [k]ey maps" },
+      { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "[s]earch [M]an pages" },
+      { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "[s]earch [m]ark to jump" },
+      { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "[s]earch [o]ptions" },
+      { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "[s]earch [R]esume" },
+      {
+        "<leader>sw",
+        LazyVim.telescope("grep_string", { word_match = "-w", cwd = false }),
+        desc = "[s]earch [w]ord",
+      },
+      {
+        "<leader>sW",
+        false,
+      },
+      {
+        "<leader>sw",
+        LazyVim.telescope("grep_string", { cwd = false }),
+        mode = "v",
+        desc = "[s]earch [w]ord Selection",
+      },
+      {
+        "<leader>sW",
+        false,
+      },
+      {
+        "<leader>uC",
+        false,
+      },
+      {
+        "<leader>ss",
+        function()
+          require("telescope.builtin").lsp_document_symbols({
+            symbols = require("lazyvim.config").get_kind_filter(),
+          })
+        end,
+        desc = "[s]earch [symbols]",
+      },
+      {
+        "<leader>sS",
+        function()
+          require("telescope.builtin").lsp_dynamic_workspace_symbols({
+            symbols = require("lazyvim.config").get_kind_filter(),
+          })
+        end,
+        desc = "[s]earch [S]ymbols (workspace)",
       },
     },
     config = function(_, opts)

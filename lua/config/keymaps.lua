@@ -8,8 +8,8 @@ local lazyterm = function()
   LazyVim.terminal(nil, { cwd = LazyVim.root() })
 end
 
-vim.keymap.set("n", "<leader>ö", lazyterm, { desc = "Terminal (Root Dir)" })
-vim.keymap.set("n", "<C-ö>", lazyterm, { desc = "Terminal (Root Dir)" }) -- TODO: why doesn't this work?
+vim.keymap.set("n", "<leader>ö", lazyterm, { desc = "terminal" })
+vim.keymap.set("n", "<C-ö>", lazyterm, { desc = "terminal" }) -- TODO: why doesn't this work?
 
 -- ChatGPT
 vim.keymap.set("n", "<leader>gp", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
@@ -17,4 +17,16 @@ vim.keymap.set("n", "<leader>gp", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
 -- Spectre
 vim.keymap.set("n", "<leader>so", function()
   require("spectre").open_file_search({ select_word = true })
-end, { desc = "Search in open files (Spectre)" })
+end, { desc = "[s]earch [o]pen files (spectre)" })
+vim.keymap.set("n", "<leader>sr", '<cmd>lua require("spectre").toggle()<CR>', {
+  desc = "[s]earch [r]eplace (spectre)",
+})
+
+-- Telescope
+vim.keymap.set("n", "<leader><leader>", function()
+  require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
+end, { noremap = true, silent = true, desc = "Smart open" })
+
+vim.keymap.set("n", "<C-p>", function()
+  require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
+end, { noremap = true, silent = true, desc = "Smart open" })
