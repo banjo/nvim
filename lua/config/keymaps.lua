@@ -9,3 +9,5 @@ end
 
 vim.keymap.set("n", "<leader>ö", lazyterm, { desc = "Terminal (Root Dir)" })
 vim.keymap.set("n", "<C-ö>", lazyterm, { desc = "Terminal (Root Dir)" }) -- TODO: why doesn't this work?
+
+vim.keymap.set("n", "<leader>gp", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
