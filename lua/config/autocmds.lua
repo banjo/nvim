@@ -11,3 +11,31 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.formatoptions:remove("r")
   end,
 })
+
+-- Go to next match
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    local buffer = vim.api.nvim_get_current_buf()
+
+    local function goto_next_match()
+      require("illuminate")["goto_next_reference"](true)
+    end
+
+    local function goto_prev_match()
+      require("illuminate")["goto_prev_reference"](true)
+    end
+
+    vim.keymap.set("n", "ää", function()
+      require("illuminate")["goto_next_reference"](true)
+    end, {
+      desc = "Next Reference",
+      buffer = buffer,
+    })
+    vim.keymap.set("n", "öö", function()
+      require("illuminate")["goto_prev_reference"](true)
+    end, {
+      desc = "Previous Reference",
+      buffer = buffer,
+    })
+  end,
+})
