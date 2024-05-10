@@ -32,6 +32,8 @@ end, { noremap = true, silent = true, desc = "Smart open" })
 -- buffers
 vim.keymap.set("n", "öb", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "äb", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+-- delete all buffers
+vim.keymap.set("n", "<leader>ba", "<cmd>bufdo bd<cr>", { desc = "Delete all buffers" })
 
 -- Quickfix
 vim.keymap.set("n", "öq", vim.cmd.cprev, { desc = "Previous Quickfix" })
