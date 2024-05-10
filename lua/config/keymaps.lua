@@ -6,14 +6,6 @@
 -- General
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 
--- Terminal
-local lazyterm = function()
-  LazyVim.terminal(nil, { cwd = LazyVim.root() })
-end
-
-vim.keymap.set("n", "<leader>ö", lazyterm, { desc = "terminal" })
-vim.keymap.set("n", "<C-ö>", lazyterm, { desc = "terminal" }) -- TODO: why doesn't this work?
-
 vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 
