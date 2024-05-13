@@ -9,6 +9,14 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 
+-- vim-tmux-navigator
+-- if os.getenv("TMUX") then
+--   vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
+--   vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>")
+--   vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>")
+--   vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>")
+-- end
+
 -- ChatGPT
 vim.keymap.set("n", "<leader>gp", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
 
