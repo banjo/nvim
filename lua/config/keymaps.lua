@@ -9,6 +9,8 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 
+-- Terminal
+vim.api.nvim_set_keymap("n", "<C-_>", ":ToggleTerm<CR>", { noremap = true, silent = true })
 -- vim-tmux-navigator
 -- if os.getenv("TMUX") then
 --   vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
