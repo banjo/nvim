@@ -10,8 +10,24 @@ vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 
 -- Terminal
+-- vim.keymap.set("n", "<C-/>", "<Nop>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<C-_>", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-_>", ":ToggleTerm<CR>", { noremap = true, silent = true })
+
+-- Navigation
+
+-- Use % instead of | as | and _ is the same on some keyboards
+vim.keymap.set("n", "<leader>w|", "<Nop>", { noremap = true, silent = true, desc = "" })
+vim.keymap.set("n", "<leader>w%", "<C-W>v", { desc = "Split Window Right", remap = true, noremap = true })
+vim.keymap.set("n", "<leader>%", "<C-W>v", { desc = "Split Window Right", remap = true, noremap = true })
+vim.keymap.set("n", "<leader>|", "<Nop>", { noremap = true, silent = true, desc = "" })
+
 -- vim-tmux-navigator
+-- vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")
+-- vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
+-- vim.keymap.set("n", "<c-h>", ":wincmd h<CR>")
+-- vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
+
 -- if os.getenv("TMUX") then
 --   vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
 --   vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>")
