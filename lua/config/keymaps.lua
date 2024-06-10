@@ -28,8 +28,8 @@ vim.keymap.set("n", "<leader>gp", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
 vim.keymap.set("n", "<leader>so", function()
   require("spectre").open_file_search({ select_word = true })
 end, { desc = "[s]earch [o]pen files (spectre)" })
-vim.keymap.set("n", "<leader>sr", '<cmd>lua require("spectre").toggle()<CR>', {
-  desc = "[s]earch [r]eplace (spectre)",
+vim.keymap.set("n", "<leader>sR", '<cmd>lua require("spectre").toggle()<CR>', {
+  desc = "[s]earch [R]eplace (spectre)",
 })
 
 -- Telescope

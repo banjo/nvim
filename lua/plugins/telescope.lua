@@ -69,7 +69,7 @@ return {
       { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "[s]earch [M]an pages" },
       { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "[s]earch [m]ark to jump" },
       { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "[s]earch [o]ptions" },
-      { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "[s]earch [R]esume" },
+      { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "[s]earch [r]esume" },
       {
         "<leader>sw",
         LazyVim.telescope("grep_string", { word_match = "-w", cwd = false }),
