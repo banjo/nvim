@@ -26,6 +26,10 @@ local symbol_kinds = {
   Value = "",
   Variable = "",
 }
+
+-- Inspiration:
+-- https://github.com/MariaSolOs/dotfiles/blob/e9eb1f8e027840f872e69e00e082e2be10237499/.config/nvim/lua/plugins/nvim-cmp.lua
+
 return {
   "hrsh7th/nvim-cmp",
   ---@param opts cmp.ConfigSchema
@@ -39,9 +43,9 @@ return {
     local luasnip = require("luasnip")
     local cmp = require("cmp")
 
-    opts.completion = {
-      autocomplete = false,
-    }
+    -- opts.completion = {
+    --   autocomplete = false,
+    -- }
 
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -60,7 +64,7 @@ return {
         if copilot.is_visible() then
           copilot.accept()
         elseif cmp.visible() then
-          cmp.confirm()
+          cmp.select_next_item()
         elseif luasnip.expand_or_locally_jumpable() then
           luasnip.expand_or_jump()
         else
