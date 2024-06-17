@@ -37,6 +37,14 @@ vim.keymap.set("n", "<leader><leader>", function()
   require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
 end, { noremap = true, silent = true, desc = "Smart open" })
 
+-- set resume here as it needs to override spectre
+vim.keymap.set(
+  "n",
+  "<leader>sr",
+  "<cmd>Telescope resume<cr>",
+  { noremap = true, silent = true, desc = "[s]earch [r]esume" }
+)
+
 vim.keymap.set("n", "<C-p>", function()
   require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
 end, { noremap = true, silent = true, desc = "Smart open" })
