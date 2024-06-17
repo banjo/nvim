@@ -86,3 +86,24 @@ wk.register({
 
 vim.keymap.set("n", "<leader>Tt", "<cmd>OverseerToggle<CR>", { desc = "[t]oggle overseer" })
 vim.keymap.set("n", "<leader>Tr", "<cmd>OverseerRun<CR>", { desc = "[r]un overseer" })
+
+-- Diffviews
+vim.keymap.set("n", "<leader>gd", function()
+  local views = require("diffview.lib").views
+  if next(views) == nil then
+    vim.cmd("DiffviewOpen")
+  else
+    vim.cmd("tabc")
+  end
+end, { desc = "toggle [d]iffview" })
+
+vim.keymap.set("n", "<leader>gH", function()
+  local views = require("diffview.lib").views
+  if next(views) == nil then
+    vim.cmd("DiffviewFileHistory")
+  else
+    vim.cmd("tabc")
+  end
+end, { desc = "toggle git [H]istory" })
+
+vim.keymap.set("n", "<leader>gx", "<cmd>tabc<CR>", { desc = "close diffview" })
