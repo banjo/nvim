@@ -9,5 +9,9 @@ return {
         },
       },
     },
+    presets = {
+      -- borders on lsp signature (hover) window
+      lsp_doc_border = true,
+    },
   },
 }
