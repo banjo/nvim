@@ -44,16 +44,17 @@ return {
         end,
         desc = "[s]earch open files",
       },
+
       -- Remove or rename default commands
-      { "<leader>ff", LazyVim.telescope("files", { cwd = false }), desc = "[f]ind [f]iles" },
+      { "<leader>ff", LazyVim.pick("auto"), desc = "[f]ind [f]iles" },
       { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "[f]ind [g]it files" },
       { "<leader>fF", false },
       { "<leader>fG", false },
       { "<leader>fG", false },
       { "<leader>fR", false },
       { "<leader>sG", false },
-      { "<leader>sg", LazyVim.telescope("live_grep", { cwd = false }), desc = "[s]earch [g]rep" },
-      { "<leader>fc", LazyVim.telescope.config_files(), desc = "[f]ind [c]onfig files" },
+      { "<leader>sg", LazyVim.pick("live_grep", { cwd = false }), desc = "[s]earch [g]rep" },
+      { "<leader>fc", LazyVim.pick.config_files(), desc = "[f]ind [c]onfig files" },
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[f]ind [b]uffer" },
       -- search
       { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "[s]earch registers" },
@@ -72,7 +73,7 @@ return {
       { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "[s]earch [r]esume" },
       {
         "<leader>sw",
-        LazyVim.telescope("grep_string", { word_match = "-w", cwd = false }),
+        LazyVim.pick("grep_string", { word_match = "-w", cwd = false }),
         desc = "[s]earch [w]ord",
       },
       {
@@ -81,7 +82,7 @@ return {
       },
       {
         "<leader>sw",
-        LazyVim.telescope("grep_string", { cwd = false }),
+        LazyVim.pick("grep_string", { cwd = false }),
         mode = "v",
         desc = "[s]earch [w]ord Selection",
       },
