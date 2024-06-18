@@ -53,7 +53,7 @@ return {
       { "<leader>fG", false },
       { "<leader>fR", false },
       { "<leader>sG", false },
-      { "<leader>sg", LazyVim.pick("live_grep", { cwd = false }), desc = "[s]earch [g]rep" },
+      { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "[s]earch [g]rep" },
       { "<leader>fc", LazyVim.pick.config_files(), desc = "[f]ind [c]onfig files" },
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "[f]ind [b]uffer" },
       -- search
@@ -73,7 +73,7 @@ return {
       { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "[s]earch [r]esume" },
       {
         "<leader>sw",
-        LazyVim.pick("grep_string", { word_match = "-w", cwd = false }),
+        LazyVim.pick("grep_string", { word_match = "-w", root = false }),
         desc = "[s]earch [w]ord",
       },
       {
@@ -82,7 +82,7 @@ return {
       },
       {
         "<leader>sw",
-        LazyVim.pick("grep_string", { cwd = false }),
+        LazyVim.pick("grep_string", { root = false }),
         mode = "v",
         desc = "[s]earch [w]ord Selection",
       },
