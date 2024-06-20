@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 
+-- reload lsp
+vim.keymap.set("n", "<leader>r", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp" })
+
 -- Terminal
 -- vim.keymap.set("n", "<C-/>", "<Nop>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<C-_>", "<Nop>", { noremap = true, silent = true })
