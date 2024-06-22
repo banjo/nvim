@@ -110,3 +110,7 @@ vim.keymap.set("n", "<leader>gH", function()
 end, { desc = "toggle git [H]istory" })
 
 vim.keymap.set("n", "<leader>gx", "<cmd>tabc<CR>", { desc = "close diffview" })
+
+-- Noice
+vim.keymap.set("n", "<leader>xn", "<cmd>Noice<CR>", { desc = "[n]oice messages" })
+vim.keymap.set("n", "<leader>xe", "<cmd>NoiceErrors<CR>", { desc = "noice [e]rrors" })
