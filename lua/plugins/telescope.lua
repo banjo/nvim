@@ -112,6 +112,27 @@ return {
         end,
         desc = "[s]earch [S]ymbols (workspace)",
       },
+      -- GIT
+      {
+        "<leader>gc",
+        "<cmd>Telescope git_commits<cr>",
+        desc = "[g]it [c]ommits",
+      },
+      {
+        "<leader>gs",
+        "<cmd>Telescope git_status<cr>",
+        desc = "[g]it [s]tatus",
+      },
+      {
+        "<leader>gb",
+        "<cmd>Telescope git_branches<cr>",
+        desc = "[g]it [b]ranches",
+      },
+      {
+        "<leader>gS",
+        "<cmd>Telescope git_stash<cr>",
+        desc = "[g]it [S]tash",
+      },
     },
     config = function(_, opts)
       require("telescope").load_extension("undo")
