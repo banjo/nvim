@@ -40,10 +40,10 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Disable diagnostics for .env files
-local group = vim.api.nvim_create_augroup("__env", { clear = true })
+-- Disable diagnostics for .env and .md files
+local group = vim.api.nvim_create_augroup("__nofilediagnostics", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = ".env",
+  pattern = { ".env", "*.md" },
   group = group,
   callback = function(args)
     vim.diagnostic.disable(args.buf)
