@@ -22,6 +22,11 @@ vim.keymap.set("n", "<leader>gf", function()
   LazyVim.lazygit({ args = { "-f", vim.trim(git_path) } })
 end, { desc = "lazy[g]it [f]ile history" })
 
+vim.keymap.set("n", "<leader>gl", function()
+  LazyVim.lazygit({ args = { "log" }, cwd = LazyVim.root.git() })
+end, { desc = "lazy[g]it [l]og" })
+vim.keymap.set("n", "<leader>gL", "<Nop>", { noremap = true, silent = true })
+
 -- reload lsp
 vim.keymap.set("n", "<leader>r", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp" })
 

@@ -28,7 +28,7 @@ return {
       function()
         require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
       end,
-      desc = "[f]ind [explorer]",
+      desc = "[f]ind [e]xplorer",
     },
     { "<leader>E", false },
     { "<leader>e", "<leader>fe", desc = "[e]xplorer", remap = true },
