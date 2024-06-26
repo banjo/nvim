@@ -9,6 +9,19 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 
+-- git
+vim.keymap.set("n", "<leader>gB", "<Nop>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>gg", function()
+  LazyVim.lazygit({ cwd = LazyVim.root.git() })
+end, { desc = "lazy[g]it" })
+vim.keymap.set("n", "<leader>gG", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "[g]it [b]lame line" })
+vim.keymap.set("n", "<leader>gf", function()
+  local git_path = vim.api.nvim_buf_get_name(0)
+  LazyVim.lazygit({ args = { "-f", vim.trim(git_path) } })
+end, { desc = "lazy[g]it [f]ile history" })
+
 -- reload lsp
 vim.keymap.set("n", "<leader>r", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp" })
 
