@@ -3,7 +3,8 @@ return {
   ---@class PluginLspOpts
   opts = {
     ---@type lspconfig.options
-    -- servers = {
-    -- },
+    inlay_hints = {
+      enabled = false,
+    },
   },
 }
