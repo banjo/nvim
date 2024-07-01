@@ -28,7 +28,7 @@ return {
           },
           ["h"] = { "toggle_node" },
           ["l"] = { "toggle_node" },
-          ["p"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+          ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
         },
       },
     },
