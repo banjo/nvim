@@ -12,6 +12,9 @@ vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 -- Remove one character without yanking
 vim.keymap.set("n", "x", '"x')
 
+-- Oil
+vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "[o]il" })
+
 -- git
 vim.keymap.set("n", "<leader>gB", "<Nop>", { noremap = true, silent = true })
 
