@@ -14,7 +14,12 @@ return {
     filesystem = {
       filtered_items = {
         hide_dotfiles = false,
-        hide_gitignored = true,
+        hide_gitignored = false, -- should not hide certain files
+        hide_by_name = {
+          ".DS_Store",
+          "thumbs.db",
+          "node_modules",
+        },
       },
       window = {
         mappings = {
