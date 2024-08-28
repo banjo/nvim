@@ -124,9 +124,9 @@ return {
         desc = "[g]it [s]tatus",
       },
       {
-        "<leader>gb",
+        "<leader>gB",
         "<cmd>Telescope git_branches<cr>",
-        desc = "[g]it [b]ranches",
+        desc = "[g]it [B]ranches",
       },
       {
         "<leader>gS",

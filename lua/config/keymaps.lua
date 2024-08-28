@@ -19,7 +19,7 @@ vim.keymap.set("n", "x", '"x')
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "[o]il" })
 
 -- git
-vim.keymap.set("n", "<leader>gB", "<Nop>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<leader>gB", "<Nop>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>gg", function()
   LazyVim.lazygit({ cwd = LazyVim.root.git() })
