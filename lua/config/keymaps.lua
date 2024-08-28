@@ -51,6 +51,14 @@ vim.keymap.set("n", "<leader>w%", "<C-W>v", { desc = "Split Window Right", remap
 vim.keymap.set("n", "<leader>%", "<C-W>v", { desc = "Split Window Right", remap = true, noremap = true })
 vim.keymap.set("n", "<leader>|", "<Nop>", { noremap = true, silent = true, desc = "" })
 
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "scroll up and center" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "scroll down and center" })
+
+vim.keymap.set("n", "<leader>mj", ":m .+1<CR>==", { desc = "Move line down" })
+vim.keymap.set("n", "<leader>mk", ":m .-2<CR>==", { desc = "Move line up" })
+vim.keymap.set("v", "<leader>mj", ":m '>+1<CR>gv=gv", { desc = "Move Line Down in Visual Mode" })
+vim.keymap.set("v", "<leader>mk", ":m '<-2<CR>gv=gv", { desc = "Move Line Up in Visual Mode" })
+
 -- ChatGPT
 vim.keymap.set("n", "<leader>gp", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
 
@@ -130,7 +138,7 @@ end, { desc = "toggle [d]iffview" })
 vim.keymap.set("n", "<leader>gH", function()
   local views = require("diffview.lib").views
   if next(views) == nil then
-    vim.cmd("DiffviewFileHistory")
+    vim.cmd("DiffviewFileHistory %")
   else
     vim.cmd("tabc")
   end
