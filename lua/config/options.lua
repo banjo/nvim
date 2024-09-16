@@ -7,3 +7,6 @@ vim.opt.autoread = true
 
 -- disable swap swapfile and showing error
 vim.opt.swapfile = false
+
+-- Change local leader for grug far
+vim.g.maplocalleader = ","

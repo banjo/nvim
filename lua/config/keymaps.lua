@@ -62,13 +62,29 @@ vim.keymap.set("v", "<leader>mk", ":m '<-2<CR>gv=gv", { desc = "Move Line Up in 
 -- ChatGPT
 vim.keymap.set("n", "<leader>gp", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
 
--- Spectre
-vim.keymap.set("n", "<leader>so", function()
-  require("spectre").open_file_search({ select_word = true })
-end, { desc = "[s]earch [o]pen files (spectre)" })
-vim.keymap.set("n", "<leader>sR", '<cmd>lua require("spectre").toggle()<CR>', {
-  desc = "[s]earch [R]eplace (spectre)",
+-- grug-far
+vim.keymap.set("n", "<leader>sR", function()
+  local grug = require("grug-far")
+  local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+  grug.grug_far({
+    transient = true,
+    prefills = {
+      filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+    },
+  })
+end, {
+  desc = "[s]earch [R]eplace (grug-far)",
 })
+
+vim.keymap.set("n", "<leader>sf", function()
+  local grug = require("grug-far")
+  grug.grug_far({
+    transient = true,
+    prefills = {
+      filesFilter = vim.fn.expand("%:t"),
+    },
+  })
+end, { desc = "[s]earch [f]ile (grug-far)" })
 
 -- Telescope
 vim.keymap.set("n", "<leader><leader>", function()
