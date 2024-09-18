@@ -4,18 +4,21 @@ return {
   keys = {
     {
       "e",
-      "<cmd>lua require('spider').motion('e')<CR>",
-      mode = { "n", "o", "x" },
+      function()
+        require("spider").motion("e")
+      end,
     },
     {
       "b",
-      "<cmd>lua require('spider').motion('b')<CR>",
-      mode = { "n", "o", "x" },
+      function()
+        require("spider").motion("b")
+      end,
     },
     {
       "w",
-      "<cmd>lua require('spider').motion('w')<CR>",
-      mode = { "n", "o", "x" },
+      function()
+        require("spider").motion("w")
+      end,
     },
   },
   config = function()
