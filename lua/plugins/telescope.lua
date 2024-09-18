@@ -84,7 +84,7 @@ return {
         "<leader>sw",
         LazyVim.pick("grep_string", { root = false }),
         mode = "v",
-        desc = "[s]earch [w]ord Selection",
+        desc = "[s]earch [w]ord selection",
       },
       {
         "<leader>sW",

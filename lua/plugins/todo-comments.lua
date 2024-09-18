@@ -11,7 +11,7 @@ return {
     { "öt", function() require("todo-comments").jump_prev() end, desc = "previous todo comment" },
     { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
     { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-    { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "[s]earch [t]odos" },
-    { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "[s]earch todos/fixes" },
+    { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "[s]earch [T]odos/fixes" },
+    { "<leader>st", "<cmd>Telescope treesitter<cr>", desc = "[s]earch [t]treesitter" }, -- Placed here to override todos
   },
 }
