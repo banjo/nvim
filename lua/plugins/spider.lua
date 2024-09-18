@@ -20,7 +20,7 @@ return {
   },
   config = function()
     require("spider").setup({
-      skipInsignificantPunctuation = true,
+      skipInsignificantPunctuation = false,
       subwordMovement = true,
     })
   end,
