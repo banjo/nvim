@@ -11,5 +11,7 @@ return {
       show_preview = true,
       follow_symlinks = false,
     })
+
+    require("telescope").load_extension("dir")
   end,
 }
