@@ -133,11 +133,17 @@ return {
         "<cmd>Telescope git_stash<cr>",
         desc = "[g]it [S]tash",
       },
+      {
+        "<leader>sF",
+        "<cmd>Telescope dir live_grep<CR>",
+        desc = "[s]earch in [F]older",
+      },
     },
     config = function(_, opts)
       require("telescope").load_extension("undo")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("dir")
     end,
   },
 }
