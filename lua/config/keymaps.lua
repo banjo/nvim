@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
 
+-- Guess indentation based on the file
+vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "[c]ode [i]ndentation" })
+
 -- set filetype=json
 vim.keymap.set("n", "<leader>ftj", "<cmd>set ft=json<CR>", { desc = "[f]ile [t]ype [j]son" })
 
