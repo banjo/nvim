@@ -140,6 +140,17 @@ return {
       },
     },
     config = function(_, opts)
+      require("telescope").setup({
+        defaults = {
+          layout_strategy = "vertical",
+          layout_config = {
+            vertical = {
+              preview_cutoff = 0, -- Show the preview window at the top
+              preview_height = 0.5, -- Adjust the height of the preview window
+            },
+          },
+        },
+      })
       require("telescope").load_extension("undo")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
