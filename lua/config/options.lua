@@ -10,3 +10,10 @@ vim.opt.swapfile = false
 
 -- Change local leader for grug far
 vim.g.maplocalleader = ","
+
+-- Set filetype for .http files
+vim.filetype.add({
+  extension = {
+    ["http"] = "http",
+  },
+})
