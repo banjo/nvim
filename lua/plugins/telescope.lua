@@ -149,6 +149,12 @@ return {
               preview_height = 0.5, -- Adjust the height of the preview window
             },
           },
+          file_ignore_patterns = { "node_modules/.*" },
+        },
+        pickers = {
+          find_files = {
+            hidden = true, -- Include hidden files
+          },
         },
       })
       require("telescope").load_extension("undo")
