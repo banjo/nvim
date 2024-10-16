@@ -81,10 +81,11 @@ end, {
 
 vim.keymap.set("n", "<leader>sf", function()
   local grug = require("grug-far")
-  grug.grug_far({
+  grug.open({
     transient = true,
     prefills = {
-      filesFilter = vim.fn.expand("%:t"),
+      filesFilter = vim.fn.expand("%:t"), -- Filename of the current file
+      paths = vim.fn.expand("%:p:h"), -- Path to the current file's directory
     },
   })
 end, { desc = "[s]earch [f]ile (grug-far)" })
