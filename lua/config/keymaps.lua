@@ -45,7 +45,9 @@ vim.keymap.set("n", "<leader>r", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp"
 -- Terminal
 -- vim.keymap.set("n", "<C-/>", "<Nop>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<C-_>", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-_>", ":ToggleTerm<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-_>", function()
+  Snacks.terminal()
+end, { noremap = true, silent = true })
 
 -- Navigation
 -- Use % instead of | as | and _ is the same on some keyboards
