@@ -134,19 +134,6 @@ vim.keymap.set("n", "öe", diagnostic_goto(false, "ERROR"), { desc = "Prev Error
 vim.keymap.set("n", "äw", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 vim.keymap.set("n", "öw", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
--- Overseer
-local wk = require("which-key")
-wk.register({
-  ["<leader>"] = {
-    T = {
-      name = "+task",
-    },
-  },
-})
-
-vim.keymap.set("n", "<leader>Tt", "<cmd>OverseerToggle<CR>", { desc = "[t]oggle overseer" })
-vim.keymap.set("n", "<leader>Tr", "<cmd>OverseerRun<CR>", { desc = "[r]un overseer" })
-
 -- Diffviews
 vim.keymap.set("n", "<leader>gd", function()
   local views = require("diffview.lib").views
