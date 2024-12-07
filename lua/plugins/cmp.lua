@@ -58,7 +58,7 @@ return {
         if copilot.is_visible() then
           copilot.accept()
         elseif cmp.visible() then
-          cmp.confirm()
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
         elseif luasnip.expand_or_locally_jumpable() then
           luasnip.expand_or_jump()
         else
