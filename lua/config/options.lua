@@ -20,3 +20,6 @@ vim.filetype.add({
 
 -- No animations
 vim.g.snacks_animate = false
+
+-- Use nvim with plguins from lazyvim
+-- vim.g.lazyvim_cmp = "nvim-cmp"
