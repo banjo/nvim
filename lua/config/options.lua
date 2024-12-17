@@ -17,3 +17,6 @@ vim.filetype.add({
     ["http"] = "http",
   },
 })
+
+-- No animations
+vim.g.snacks_animate = false
