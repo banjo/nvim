@@ -32,7 +32,6 @@ local symbol_kinds = {
 
 return {
   "hrsh7th/nvim-cmp",
-  ---@param opts cmp.ConfigSchema
   opts = function(_, opts)
     local luasnip = require("luasnip")
     local cmp = require("cmp")
