@@ -10,6 +10,10 @@ return {
             ["source"] = {
               "<cr>",
               function(self)
+                -- execute the current buffer and output the result
+                vim.api.nvim_command("w !node")
+
+                -- Show the logging output in the buffer.
                 local namespace = vim.api.nvim_create_namespace("node_result")
                 vim.api.nvim_buf_clear_namespace(self.buf, namespace, 0, -1)
 
