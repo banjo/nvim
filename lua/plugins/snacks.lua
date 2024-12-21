@@ -72,7 +72,6 @@ return {
   "folke/snacks.nvim",
   ---@type snacks.Config
   opts = {
-    -- Allow snacks to execute for typescript
     scratch = {
       win_by_ft = {
         typescript = {
