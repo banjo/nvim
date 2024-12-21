@@ -158,3 +158,18 @@ vim.keymap.set("n", "<leader>gx", "<cmd>tabc<CR>", { desc = "close diffview" })
 -- Noice
 vim.keymap.set("n", "<leader>xn", "<cmd>Noice<CR>", { desc = "[n]oice messages" })
 vim.keymap.set("n", "<leader>xe", "<cmd>NoiceErrors<CR>", { desc = "noice [e]rrors" })
+
+-- treewalker (with iterm2)
+vim.api.nvim_set_keymap("n", "˛", ":Treewalker Left<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "√", ":Treewalker Down<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "ª", ":Treewalker Up<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "ﬁ", ":Treewalker Right<CR>", { noremap = true, silent = true })
+
+-- Define the function to show key press
+local function showKeyPress()
+  local char = vim.fn.nr2char(vim.fn.getchar())
+  print("Last key pressed: " .. char)
+end
+
+-- Map a key to call this function in normal mode
+vim.api.nvim_set_keymap("n", "<F3>", "", { noremap = true, callback = showKeyPress })
