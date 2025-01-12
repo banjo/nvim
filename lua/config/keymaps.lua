@@ -40,7 +40,7 @@ end, { desc = "lazy[g]it [l]og" })
 vim.keymap.set("n", "<leader>gL", "<Nop>", { noremap = true, silent = true })
 
 -- reload lsp
-vim.keymap.set("n", "<leader>r", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp" })
+vim.keymap.set("n", "<leader>rl", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp" })
 
 -- Terminal
 -- vim.keymap.set("n", "<C-/>", "<Nop>", { noremap = true, silent = true })
