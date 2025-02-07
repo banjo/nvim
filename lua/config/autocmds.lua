@@ -49,3 +49,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.diagnostic.enable(false, { bufnr = args.buf })
   end,
 })
+
+-- Run eslint on save for ts and js files
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
+  callback = function()
+    vim.cmd("EslintFixAll")
+  end,
+})

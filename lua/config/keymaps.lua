@@ -173,3 +173,6 @@ end
 
 -- Map a key to call this function in normal mode
 vim.api.nvim_set_keymap("n", "<F3>", "", { noremap = true, callback = showKeyPress })
+
+-- Run eslint fix all with command
+vim.keymap.set("n", "<leader>ce", "<cmd>:EslintFixAll<CR>", { desc = "[c]ode [e]slintFixAll" })

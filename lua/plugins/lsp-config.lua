@@ -21,6 +21,7 @@ return {
       },
       setup = {
         eslint = function()
+          -- This is needed to remove the error with eslint (sohuld work after nvim 0.11)
           require("lazyvim.util").lsp.on_attach(function(client)
             if client.name == "eslint" then
               client.server_capabilities.documentFormattingProvider = true
