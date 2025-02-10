@@ -13,7 +13,7 @@ return {
               preferences = {
                 includeCompletionsForModuleExports = true,
                 includeCompletionsForImportStatements = true,
-                importModuleSpecifier = "relative",
+                importModuleSpecifier = "non-relative",
               },
             },
           },
