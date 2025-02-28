@@ -8,6 +8,11 @@ return {
     config = function()
       local codecompanion = require("codecompanion")
       codecompanion.setup({
+        display = {
+          diff = {
+            provider = "mini_diff",
+          },
+        },
         strategies = {
           chat = {
             keymaps = {
