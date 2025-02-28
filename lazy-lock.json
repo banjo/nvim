@@ -1,5 +1,4 @@
 {
-  "CopilotChat.nvim": { "branch": "main", "commit": "834ba1bc71e1a146831be0ebfeb456ad252c3c56" },
   "LazyVim": { "branch": "main", "commit": "eb8ddea8c9438c34e71db097eb77a44185dd1093" },
   "LuaSnip": { "branch": "master", "commit": "c9b9a22904c97d0eb69ccb9bab76037838326817" },
   "SchemaStore.nvim": { "branch": "main", "commit": "a2dcda8e69113008055b56a5833c96c8ab9893d6" },
@@ -36,6 +35,7 @@
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "8b9363d83b5d779813cdd2819b8308651cec2a09" },
   "mason.nvim": { "branch": "main", "commit": "e2f7f9044ec30067bc11800a9e266664b88cda22" },
   "mini.ai": { "branch": "main", "commit": "53b4e4571e42913b94a12eff85dabe4db370d352" },
+  "mini.diff": { "branch": "main", "commit": "bc3a7be30fd45ed4961ea90de1d9d04637cdeae6" },
   "mini.hipatterns": { "branch": "main", "commit": "fbf1e2195fdd65cf1bc970316c28098257728868" },
   "mini.icons": { "branch": "main", "commit": "ec61af6e606fc89ee3b1d8f2f20166a3ca917a36" },
   "mini.nvim": { "branch": "main", "commit": "87fc38a8a2b8d498cecb021d057a38ea2e9f5a79" },
