@@ -14,6 +14,11 @@ return {
                 includeCompletionsForModuleExports = true,
                 includeCompletionsForImportStatements = true,
                 importModuleSpecifier = "non-relative",
+                -- autoImportFileExcludePatterns = {
+                --   "dist/*",
+                --   "@radix-ui/*",
+                --   "lucide-react",
+                -- },
               },
             },
           },
