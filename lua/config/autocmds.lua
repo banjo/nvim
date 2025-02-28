@@ -54,6 +54,19 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
   callback = function()
-    vim.cmd("EslintFixAll")
+    local eslint_config_files =
+      { ".eslintrc", ".eslintrc.js", ".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml", "eslint.config.js" }
+    local function eslint_installed()
+      for _, config_file in ipairs(eslint_config_files) do
+        if vim.fn.filereadable(vim.fn.getcwd() .. "/" .. config_file) == 1 then
+          return true
+        end
+      end
+      return false
+    end
+
+    if eslint_installed() then
+      vim.cmd("EslintFixAll")
+    end
   end,
 })
