@@ -7,6 +7,11 @@ return {
         "http",
         "svelte",
       })
+
+      opts.indent = {
+        enable = true,
+        disable = { "javascript", "typescript" },
+      }
     end,
   },
   {
