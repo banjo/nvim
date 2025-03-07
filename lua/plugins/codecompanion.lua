@@ -8,6 +8,59 @@ return {
     config = function()
       local codecompanion = require("codecompanion")
       codecompanion.setup({
+        prompt_library = {
+          ["default"] = {
+            strategy = "chat",
+            description = "The default prompt with nice context",
+            opts = {
+              short_name = "def",
+              auto_submit = false,
+              user_prompt = false,
+              is_slash_cmd = true,
+              ignore_system_prompt = false,
+              contains_code = true,
+            },
+            references = {
+              {
+                type = "file",
+                path = ".github/copilot-instructions.md",
+              },
+            },
+            prompts = {
+              {
+                role = "user",
+                content = "This is my current buffer: #buffer\n\n",
+              },
+            },
+          },
+          ["inline"] = {
+            strategy = "inline",
+            description = "The default inline with nice context",
+            opts = {
+              short_name = "inline",
+              user_prompt = true,
+              ignore_system_prompt = false,
+              contains_code = true,
+            },
+            references = {
+              {
+                type = "file",
+                path = ".github/copilot-instructions.md",
+              },
+            },
+          },
+        },
+        adapters = {
+          copilot = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "claude-3.7-sonnet",
+                },
+              },
+            })
+          end,
+        },
         display = {
           diff = {
             provider = "mini_diff",
@@ -21,6 +74,30 @@ return {
               },
             },
             adapter = "copilot",
+            slash_commands = {
+              ["git_files"] = {
+                description = "List git files",
+                ---@param chat CodeCompanion.Chat
+                callback = function(chat)
+                  local handle = io.popen("git ls-files")
+                  if handle ~= nil then
+                    local result = handle:read("*a")
+                    handle:close()
+                    chat.references:add({ source = "git", id = "<git_files>" })
+                    local content = "These are my current git files:\n" .. result
+                    return chat:add_message(
+                      { content = content, role = "user" },
+                      { reference = "<git_files>", visible = false }
+                    )
+                  else
+                    return chat:add_message({ content = "No git files available" })
+                  end
+                end,
+                opts = {
+                  contains_code = false,
+                },
+              },
+            },
           },
           inline = {
             adapter = "copilot",
@@ -32,7 +109,7 @@ return {
       {
         "<leader>aa",
         function()
-          require("codecompanion").chat({})
+          require("codecompanion").prompt("def")
         end,
         desc = "[a]i ch[a]t",
         mode = { "n", "v" },
@@ -41,7 +118,7 @@ return {
         desc = "[a]i [q]uick chat",
         "<leader>aq",
         function()
-          vim.cmd(":CodeCompanion /buffer")
+          require("codecompanion").prompt("inline")
         end,
         mode = { "n", "v" },
       },
