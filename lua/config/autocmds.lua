@@ -70,3 +70,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
   end,
 })
+
+-- Format buffer when inline request is complete in CodeCompanion
+local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "CodeCompanionInline*",
+  group = group,
+  callback = function(request)
+    if request.match == "CodeCompanionInlineFinished" then
+      require("conform").format({ bufnr = request.buf })
+    end
+  end,
+})
