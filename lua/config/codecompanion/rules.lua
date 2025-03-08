@@ -72,12 +72,42 @@ function M.scan_rule_files(rules_dir)
       local patterns = M.parse_glob_patterns(content)
 
       if #patterns > 0 then
-        table.insert(files, { file = file, patterns = patterns, content = content })
+        local filtered_content = M.extract_content_after_frontmatter(content)
+        table.insert(files, { file = file, patterns = patterns, content = filtered_content })
       end
     end
   end
 
   return files
+end
+
+function M.extract_content_after_frontmatter(content)
+  local frontmatter_end = 0
+
+  -- Check if the file starts with frontmatter delimiter
+  if content[1] and (content[1] == "---" or content[1] == "+++") then
+    local delimiter = content[1]
+
+    -- Find the end of the frontmatter
+    for i = 2, #content do
+      if content[i] == delimiter then
+        frontmatter_end = i
+        break
+      end
+    end
+  end
+
+  -- If frontmatter was found, return only the content after it
+  if frontmatter_end > 0 then
+    local result = {}
+    for i = frontmatter_end + 1, #content do
+      table.insert(result, content[i])
+    end
+    return result
+  end
+
+  -- If no frontmatter was found, return the original content
+  return content
 end
 
 -- Get the content of files whose patterns match the current file
@@ -132,7 +162,8 @@ function M.init(context, opts)
   local rule_files = M.scan_rule_files(absolute_rules_dir)
   local file_contents = M.get_matching_file_contents(rule_files, file_name_from_root_dir)
 
-  return table.concat(file_contents, "\n")
+  local str = "Here is context for " .. file_name .. ":\n" .. table.concat(file_contents, "---\n")
+  return str
 end
 
 return M
