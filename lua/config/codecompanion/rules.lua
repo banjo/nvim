@@ -103,9 +103,20 @@ function M.get_matching_file_contents(files, file_name_from_root_dir)
   return file_contents
 end
 
-function M.init(context)
-  local RULES_DIR = ".cursor/rules"
-  local ROOT_MARKERS = { ".git" }
+---@class CodeCompanionContext
+---@field filename string Path to the current file
+
+---@class CodeCompanionRulesOptions
+---@field rules_dir? string Directory containing rule files (default: ".cursor/rules")
+---@field root_markers? string[] Markers to identify the project root (default: {".git"})
+
+---@param context CodeCompanionContext Context information with filename
+---@param opts? CodeCompanionRulesOptions Configuration options
+---@return string Content of matched rule files
+function M.init(context, opts)
+  opts = opts or {}
+  local RULES_DIR = opts.rules_dir or ".cursor/rules"
+  local ROOT_MARKERS = opts.root_markers or { ".git" }
   local file_name = context.filename
 
   local root_dir = M.find_root_dir(file_name, ROOT_MARKERS)

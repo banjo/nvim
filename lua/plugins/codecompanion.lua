@@ -165,7 +165,7 @@ return {
                 },
                 content = function(context)
                   local rules = require("config.codecompanion.rules")
-                  return rules.init(context)
+                  return rules.init(context, { root_markers = { ".git" }, rules_dir = ".cursor/rules" })
                 end,
               },
             },
