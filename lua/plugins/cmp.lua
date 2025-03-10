@@ -102,12 +102,10 @@ return {
     opts.window = {
       completion = {
         border = "rounded",
-        winhighlight = winhighlight,
         scrollbar = true,
       },
       documentation = {
         border = "rounded",
-        winhighlight = winhighlight,
         max_height = math.floor(vim.o.lines * 0.5),
         max_width = math.floor(vim.o.columns * 0.4),
       },
@@ -118,11 +116,19 @@ return {
       docs = { auto_open = false },
     }
 
-    -- use all sources but buffer to remove boring completions
+    -- use all sources but excluded ones to remove boring completions
+    local excluded_sources = { "buffer" }
     local new_sources = {}
 
     for _, source in ipairs(opts.sources) do
-      if source.name ~= "buffer" then
+      local excluded = vim.tbl_contains(
+        vim.tbl_map(function(src)
+          return src.name
+        end, excluded_sources),
+        source.name
+      )
+
+      if not excluded then
         table.insert(new_sources, source)
       end
     end
