@@ -101,7 +101,7 @@ return {
             symbols = require("lazyvim.config").get_kind_filter(),
           })
         end,
-        desc = "[s]earch [symbols]",
+        desc = "[s]earch [s]ymbols",
       },
       {
         "<leader>sS",
