@@ -82,3 +82,11 @@ vim.api.nvim_create_autocmd({ "User" }, {
     end
   end,
 })
+
+-- Enable csv view whenever a csv file is opened
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.csv",
+  callback = function()
+    vim.cmd("CsvViewEnable")
+  end,
+})
