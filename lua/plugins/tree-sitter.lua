@@ -6,6 +6,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "http",
         "svelte",
+        "diff",
       })
 
       opts.indent = {
