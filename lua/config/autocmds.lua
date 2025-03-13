@@ -90,3 +90,15 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.cmd("CsvViewEnable")
   end,
 })
+
+-- close diffview with "q"
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "DiffviewFiles", "DiffviewFileHistory" }, -- The filetypes diffview.nvim uses for its buffers
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "n", "q", ":tabc<CR>", {
+      noremap = true,
+      silent = true,
+      desc = "Close DiffView tab",
+    })
+  end,
+})
