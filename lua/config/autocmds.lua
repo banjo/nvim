@@ -102,3 +102,15 @@ vim.api.nvim_create_autocmd("FileType", {
     })
   end,
 })
+
+-- close codecompanion with "q" in normal mode
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "codecompanion",
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<CR>", {
+      noremap = true,
+      silent = true,
+      desc = "Close codecompanion buffer",
+    })
+  end,
+})
