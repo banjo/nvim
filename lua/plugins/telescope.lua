@@ -94,14 +94,19 @@ return {
         "<leader>uC",
         false,
       },
+      -- REPLACED by Namu
+      -- {
+      --   "<leader>ss",
+      --   function()
+      --     require("telescope.builtin").lsp_document_symbols({
+      --       symbols = require("lazyvim.config").get_kind_filter(),
+      --     })
+      --   end,
+      --   desc = "[s]earch [s]ymbols",
+      -- },
       {
         "<leader>ss",
-        function()
-          require("telescope.builtin").lsp_document_symbols({
-            symbols = require("lazyvim.config").get_kind_filter(),
-          })
-        end,
-        desc = "[s]earch [s]ymbols",
+        false,
       },
       {
         "<leader>sS",
