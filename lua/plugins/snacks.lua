@@ -88,5 +88,8 @@ return {
         },
       },
     },
+    indent = {
+      enabled = false,
+    },
   },
 }
