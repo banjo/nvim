@@ -104,13 +104,29 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- close codecompanion with "q" in normal mode
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "codecompanion",
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "codecompanion", "CodeCompanion" },  -- Try both capitalizations
+--   callback = function()
+--     vim.keymap.set("n", "q", ":close<CR>", {
+--       noremap = true,
+--       silent = true,
+--       desc = "Close codecompanion buffer",
+--       buffer = 0,  -- Apply to current buffer only
+--     })
+--   end,
+-- })
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*",
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "q", ":close<CR>", {
-      noremap = true,
-      silent = true,
-      desc = "Close codecompanion buffer",
-    })
+    local buftype = vim.bo.filetype
+    if buftype == "codecompanion" or buftype == "CodeCompanion" then
+      vim.keymap.set("n", "q", ":close<CR>", {
+        noremap = true,
+        silent = true,
+        buffer = 0,
+        desc = "Close codecompanion buffer",
+      })
+    end
   end,
 })
