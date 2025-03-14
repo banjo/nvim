@@ -26,6 +26,7 @@ return {
 
     -- Diff against custom branch with Telescope branch picker
     vim.keymap.set("n", "<leader>gdb", function()
+      -- Get all remote branches sorted by latest commit
       local fetch_job = vim
         .system(
           { "git", "for-each-ref", "--sort=-committerdate", "refs/remotes/", "--format=%(refname:short)" },
@@ -55,6 +56,13 @@ return {
           prompt_title = "Remote Branches (Sorted by Latest Commit)",
           finder = require("telescope.finders").new_table({
             results = branches,
+            entry_maker = function(branch)
+              return {
+                value = branch,
+                display = branch,
+                ordinal = branch,
+              }
+            end,
           }),
           sorter = require("telescope.config").values.generic_sorter({}),
           attach_mappings = function(prompt_bufnr, map)
@@ -63,16 +71,39 @@ return {
               require("telescope.actions").close(prompt_bufnr)
 
               if selection then
-                local branch = selection.value
-                local branch_name = branch:match("^[^/]+/(.+)$") or branch
-
-                vim.cmd("DiffviewOpen HEAD.." .. branch_name)
+                -- Open the diff view with the selected branch
+                vim.cmd("DiffviewOpen HEAD.." .. selection.value)
               end
             end)
             return true
           end,
+          previewer = require("telescope.previewers").new_buffer_previewer({
+            title = "Branch Details",
+            define_preview = function(self, entry, status)
+              local branch = entry.value
+
+              -- Get commit information for preview
+              local preview_job = vim
+                .system({
+                  "git",
+                  "log",
+                  "-1",
+                  "--pretty=format:Author: %an%nEmail: %ae%nDate: %ar%n%nMessage: %s%n%n%b",
+                  branch,
+                }, { text = true })
+                :wait()
+
+              if preview_job.code == 0 then
+                -- Add branch name as the first line
+                local preview_text = "Branch: " .. branch .. "\n\n" .. preview_job.stdout
+                vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(preview_text, "\n"))
+              else
+                vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, { "Failed to load branch details" })
+              end
+            end,
+          }),
         })
         :find()
-    end, { desc = "diff against custom remote branch" })
+    end, { desc = "diff against remote branch" })
   end,
 }
