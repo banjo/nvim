@@ -15,6 +15,61 @@ vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "[c]ode [i]nd
 -- set filetype=json
 vim.keymap.set("n", "<leader>ftj", "<cmd>set ft=json<CR>", { desc = "[f]ile [t]ype [j]son" })
 
+-- set filetype with telescope picker
+vim.keymap.set("n", "<leader>ftc", function()
+  local filetypes = {
+    { name = "lua", filetype = "lua" },
+    { name = "javascript", filetype = "javascript" },
+    { name = "typescript", filetype = "typescript" },
+    { name = "python", filetype = "python" },
+    { name = "go", filetype = "go" },
+    { name = "rust", filetype = "rust" },
+    { name = "java", filetype = "java" },
+    { name = "c", filetype = "c" },
+    { name = "c++", filetype = "cpp" },
+    { name = "html", filetype = "html" },
+    { name = "css", filetype = "css" },
+    { name = "markdown", filetype = "markdown" },
+    { name = "json", filetype = "json" },
+    { name = "yaml", filetype = "yaml" },
+    { name = "toml", filetype = "toml" },
+    { name = "xml", filetype = "xml" },
+    { name = "sql", filetype = "sql" },
+    { name = "bash", filetype = "bash" },
+    { name = "sh", filetype = "sh" },
+    { name = "zsh", filetype = "zsh" },
+  }
+
+  require("telescope.pickers")
+    .new({}, {
+      prompt_title = "Select Filetype",
+      finder = require("telescope.finders").new_table({
+        results = filetypes,
+        entry_maker = function(entry)
+          return {
+            value = entry,
+            display = entry.name,
+            ordinal = entry.name,
+          }
+        end,
+      }),
+      sorter = require("telescope.config").values.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, map)
+        local actions = require("telescope.actions")
+        local action_state = require("telescope.actions.state")
+
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          vim.bo.filetype = selection.value.filetype
+          vim.notify("Set filetype to " .. selection.value.name, vim.log.levels.INFO)
+        end)
+        return true
+      end,
+    })
+    :find()
+end, { desc = "[f]ile [t]ype [c]ustom" })
+
 -- Remove one character without yanking
 vim.keymap.set("n", "x", '"x')
 
