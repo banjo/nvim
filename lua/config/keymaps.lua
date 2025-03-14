@@ -193,3 +193,78 @@ vim.api.nvim_set_keymap("n", "<F3>", "", { noremap = true, callback = showKeyPre
 
 -- Run eslint fix all with command
 vim.keymap.set("n", "<leader>ce", "<cmd>:EslintFixAll<CR>", { desc = "[e]slintFixAll" })
+
+-- Find related files (e.g., Service.ts -> Service.test.ts, Service.mock.ts)
+vim.keymap.set("n", "<leader>fo", function()
+  local current_file = vim.fn.expand("%:p")
+  local current_dir = vim.fn.expand("%:p:h")
+  local file_name = vim.fn.expand("%:t:r") -- gets the filename without extension
+
+  -- Extract base file name (handle names like "Service.mock" -> "Service")
+  local base_name = file_name
+  local parts = vim.split(file_name, "%.")
+  if #parts > 1 then
+    base_name = parts[1]
+  end
+
+  local function find_related_files()
+    -- NOT BEST SOLUTION BUT WORKS FOR NOW
+    local current_dir_with_2_last_folders_removed = vim.fn.fnamemodify(current_dir, ":h:h")
+    local pattern = current_dir_with_2_last_folders_removed .. "/**/" .. base_name .. ".*"
+    local files = vim.fn.glob(pattern, false, true)
+
+    local related_files = {}
+    local seen_files = {}
+
+    for _, file in ipairs(files) do
+      local normalized_file = vim.fn.fnamemodify(file, ":p")
+      if normalized_file ~= current_file and not seen_files[normalized_file] then
+        table.insert(related_files, file)
+        seen_files[normalized_file] = true
+      end
+    end
+
+    return related_files
+  end
+
+  local related_files = find_related_files()
+
+  if #related_files == 0 then
+    vim.notify("No related files found", vim.log.levels.INFO)
+    return
+  end
+
+  if #related_files == 1 then
+    vim.cmd("edit " .. vim.fn.fnameescape(related_files[1]))
+    return
+  end
+
+  require("telescope.pickers")
+    .new({}, {
+      prompt_title = "Related Files",
+      finder = require("telescope.finders").new_table({
+        results = related_files,
+        entry_maker = function(entry)
+          local relative_path = vim.fn.fnamemodify(entry, ":~:.")
+          return {
+            value = entry,
+            display = relative_path,
+            ordinal = relative_path,
+          }
+        end,
+      }),
+      sorter = require("telescope.config").values.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, map)
+        local actions = require("telescope.actions")
+        local action_state = require("telescope.actions.state")
+
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          vim.cmd("edit " .. vim.fn.fnameescape(selection.value))
+        end)
+        return true
+      end,
+    })
+    :find()
+end, { desc = "[f]iles [o]ther (related)" })
