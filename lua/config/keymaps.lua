@@ -6,8 +6,8 @@
 -- General
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 
-vim.keymap.set("n", "<leader>ft", "<Nop>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>fT", "<Nop>", { noremap = true, silent = true })
+vim.keymap.del("n", "<leader>ft")
+vim.keymap.del("n", "<leader>fT")
 
 -- Guess indentation based on the file
 vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "[c]ode [i]ndentation" })
@@ -24,7 +24,7 @@ vim.keymap.set("n", "x", '"x')
 vim.keymap.set("n", "<leader>gg", function()
   Snacks.lazygit({ cwd = LazyVim.root.git() })
 end, { desc = "lazy[g]it" })
-vim.keymap.set("n", "<leader>gG", "<Nop>", { noremap = true, silent = true })
+vim.keymap.del("n", "<leader>gG")
 vim.keymap.set("n", "<leader>gb", Snacks.git.blame_line, { desc = "[g]it [b]lame line" })
 vim.keymap.set("n", "<leader>gf", function()
   local git_path = vim.api.nvim_buf_get_name(0)
@@ -34,7 +34,7 @@ end, { desc = "lazy[g]it [f]ile history" })
 vim.keymap.set("n", "<leader>gl", function()
   Snacks.lazygit({ args = { "log" }, cwd = LazyVim.root.git() })
 end, { desc = "lazy[g]it [l]og" })
-vim.keymap.set("n", "<leader>gL", "<Nop>", { noremap = true, silent = true })
+vim.keymap.del("n", "<leader>gL")
 
 -- reload lsp
 vim.keymap.set("n", "<leader>rl", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp" })
