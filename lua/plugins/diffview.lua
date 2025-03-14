@@ -23,5 +23,11 @@ return {
     vim.keymap.set("n", "<leader>gdd", function()
       vim.cmd("DiffviewOpen HEAD..origin/develop")
     end, { desc = "diff against develop" })
+
+    -- Diff against custom branch
+    vim.keymap.set("n", "<leader>gdb", function()
+      local branch = vim.fn.input("Branch: ", get_default_branch_name())
+      vim.cmd("DiffviewOpen HEAD..origin/" .. branch)
+    end, { desc = "diff against custom branch" })
   end,
 }
