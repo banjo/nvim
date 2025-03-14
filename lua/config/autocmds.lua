@@ -103,14 +103,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Create the codecompanion filetype when opening or creating files that match the pattern
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "codecompanion",
-  callback = function()
-    vim.bo.filetype = "codecompanion"
-  end,
-})
-
 -- close codecompanion with "q" in normal mode
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "codecompanion",

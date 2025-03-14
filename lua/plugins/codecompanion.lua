@@ -34,7 +34,7 @@ return {
             prompts = {
               {
                 role = "user",
-                content = "This is my current buffer: #buffer\n\n",
+                content = [[#buffer]],
               },
             },
           },
@@ -59,7 +59,9 @@ return {
                 },
                 content = function(context)
                   local rules = require("config.codecompanion.rules")
-                  return rules.init(context, { root_markers = { ".git" }, rules_dir = ".cursor/rules" })
+                  local content = rules.init(context, { root_markers = { ".git" }, rules_dir = ".cursor/rules" })
+
+                  return [[#buffer]] .. "\n\n" .. content
                 end,
               },
             },
@@ -76,7 +78,7 @@ return {
             prompts = {
               {
                 role = "user",
-                content = "This is my current buffer: #buffer\n\n",
+                content = [[#buffer]],
               },
             },
             -- references = {
