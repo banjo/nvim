@@ -118,6 +118,7 @@ function M.get_matching_file_contents(files, file_name_from_root_dir)
     if file_entry.patterns then
       for _, pattern in ipairs(file_entry.patterns) do
         local is_match = vim.fn.glob(pattern):find(file_name_from_root_dir)
+        print(is_match, pattern, file_name_from_root_dir)
         if is_match then
           for _, line in ipairs(file_entry.content) do
             table.insert(file_contents, line)
@@ -162,7 +163,12 @@ function M.init(context, opts)
   local rule_files = M.scan_rule_files(absolute_rules_dir)
   local file_contents = M.get_matching_file_contents(rule_files, file_name_from_root_dir)
 
-  local str = "Here is context for " .. file_name .. ":\n" .. table.concat(file_contents, "---\n")
+  local str = "Here is context for "
+    .. file_name_from_root_dir
+    .. ":\n\n"
+    .. table.concat(file_contents, "---\n")
+    .. "\n\n---\n"
+
   return str
 end
 
