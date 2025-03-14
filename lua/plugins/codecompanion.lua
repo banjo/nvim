@@ -25,12 +25,12 @@ return {
               ignore_system_prompt = false,
               contains_code = true,
             },
-            references = {
-              {
-                type = "file",
-                path = ".github/copilot-instructions.md",
-              },
-            },
+            -- references = {
+            --   {
+            --     type = "file",
+            --     path = ".github/copilot-instructions.md",
+            --   },
+            -- },
             prompts = {
               {
                 role = "user",
@@ -79,12 +79,12 @@ return {
                 content = "This is my current buffer: #buffer\n\n",
               },
             },
-            references = {
-              {
-                type = "file",
-                path = ".github/copilot-instructions.md",
-              },
-            },
+            -- references = {
+            --   {
+            --     type = "file",
+            --     path = ".github/copilot-instructions.md",
+            --   },
+            -- },
           },
         },
         adapters = {
