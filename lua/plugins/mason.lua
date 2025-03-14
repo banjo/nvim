@@ -6,6 +6,7 @@ return {
       "shellcheck",
       "shfmt",
       "flake8",
+      "typos-lsp",
     },
   },
 }
