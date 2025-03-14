@@ -172,27 +172,6 @@ vim.keymap.set("n", "öe", diagnostic_goto(false, "ERROR"), { desc = "Prev Error
 vim.keymap.set("n", "äw", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 vim.keymap.set("n", "öw", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
--- Diffviews
--- vim.keymap.set("n", "<leader>gd", function()
---   local views = require("diffview.lib").views
---   if next(views) == nil then
---     vim.cmd("DiffviewOpen")
---   else
---     vim.cmd("tabc")
---   end
--- end, { desc = "toggle [d]iffview" })
---
--- vim.keymap.set("n", "<leader>gH", function()
---   local views = require("diffview.lib").views
---   if next(views) == nil then
---     vim.cmd("DiffviewFileHistory %")
---   else
---     vim.cmd("tabc")
---   end
--- end, { desc = "toggle git [H]istory" })
---
--- vim.keymap.set("n", "<leader>gx", "<cmd>tabc<CR>", { desc = "close diffview" })
-
 -- Noice
 vim.keymap.set("n", "<leader>xn", "<cmd>Noice<CR>", { desc = "[n]oice messages" })
 vim.keymap.set("n", "<leader>xe", "<cmd>NoiceErrors<CR>", { desc = "noice [e]rrors" })
