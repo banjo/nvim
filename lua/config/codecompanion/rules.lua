@@ -113,27 +113,24 @@ local function scan_rule_files(rules_dir)
 end
 
 -- Get the content of files whose patterns match the current file
-local function get_matching_file_contents(files, file_name_from_root_dir)
-  local file_contents = {}
+---@param rule_files RuleFile[] Array of rule files found
+---@param file_name_from_root_dir string The name of the current file relative to the project root
+---@return RuleFile[] Array of rule files whose patterns match the current file
+local function get_matching_rule_files(rule_files, file_name_from_root_dir)
+  local files = {}
 
-  for _, file_entry in ipairs(files) do
+  for _, file_entry in ipairs(rule_files) do
     if file_entry.patterns then
       for _, pattern in ipairs(file_entry.patterns) do
         local is_match = vim.fn.glob(pattern):find(file_name_from_root_dir)
-        print(is_match, pattern, file_name_from_root_dir)
         if is_match then
-          for _, line in ipairs(file_entry.content) do
-            table.insert(file_contents, line)
-          end
-
-          -- found a match, no need to check other patterns
-          break
+          table.insert(files, file_entry)
         end
       end
     end
   end
 
-  return file_contents
+  return files
 end
 
 ---@class CodeCompanionRulesOptions
@@ -162,7 +159,9 @@ function M.init(file, opts)
     return {}
   end
 
-  return scan_rule_files(absolute_rules_dir)
+  local rule_files = scan_rule_files(absolute_rules_dir)
+  local file_name_from_root_dir = file:sub(#root_dir + 2)
+  return get_matching_rule_files(rule_files, file_name_from_root_dir)
 end
 
 ---@class FormatOpts
@@ -170,17 +169,25 @@ end
 ---@field suffix? string The suffix to use for the formatted string
 ---@field separator? string The separator to use between each file content
 
----@param file string Path to the current file
 ---@param rule_files RuleFile[] Array of rule files found
 ---@param opts FormatOpts? Options for formatting the output
-function M.format(file, rule_files, opts)
+function M.format(rule_files, opts)
   opts = opts or {}
-  opts.prefix = opts.prefix or "Here is context for "
+  opts.prefix = opts.prefix or "Here is context for the current file: \n\n---"
   opts.suffix = opts.suffix or "---\n\n"
-  opts.separator = opts.separator or "---\n"
+  opts.separator = opts.separator or "\n---\n\n"
 
-  local file_contents = get_matching_file_contents(rule_files, file)
-  local str = opts.prefix .. "\n\n" .. table.concat(file_contents, opts.separator) .. "\n\n" .. opts.suffix
+  if #rule_files == 0 then
+    return ""
+  end
+
+  local contents = {}
+  for _, rule_file in ipairs(rule_files) do
+    local file_content = table.concat(rule_file.content, "\n")
+    table.insert(contents, file_content)
+  end
+
+  local str = opts.prefix .. table.concat(contents, opts.separator) .. opts.suffix
 
   return str
 end
