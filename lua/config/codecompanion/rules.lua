@@ -146,7 +146,7 @@ end
 ---@param file string Path to the current file
 ---@param opts? CodeCompanionRulesOptions Configuration options
 ---@return RuleFile[] Array of rule files found
-function M.init(file, opts)
+function M.scan(file, opts)
   opts = opts or {}
   local RULES_DIR = opts.rules_dir or ".cursor/rules"
   local ROOT_MARKERS = opts.root_markers or { ".git" }

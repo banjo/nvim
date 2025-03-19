@@ -60,7 +60,7 @@ return {
                 content = function(context)
                   local rules = require("config.codecompanion.rules")
                   local rule_files =
-                    rules.init(context.filename, { root_markers = { ".git" }, rules_dir = ".cursor/rules" })
+                    rules.scan(context.filename, { root_markers = { ".git" }, rules_dir = ".cursor/rules" })
                   local content = rules.format(rule_files, {
                     prefix = "Here is context for the current file: \n\n---",
                     separator = "\n\n---\n",
