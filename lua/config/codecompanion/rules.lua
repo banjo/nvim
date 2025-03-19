@@ -182,7 +182,7 @@ local function get_gist_rule_files(gist_ids, source_file_name)
   return gists
 end
 
----@class CodeCompanionRulesOptions
+---@class ProjectRulesOptions
 ---@field rules_dir? string Directory containing rule files (default: ".cursor/rules")
 ---@field root_markers? string[] Markers to identify the project root (default: {".git"})
 ---@field gist_ids? string[] Array of gist IDs to fetch rules from
@@ -193,9 +193,9 @@ end
 ---@field content string[] Array of lines from the file with frontmatter removed
 
 ---@param file string Path to the current file
----@param opts? CodeCompanionRulesOptions Configuration options
+---@param opts? ProjectRulesOptions Configuration options
 ---@return RuleFile[] Array of rule files found
-function M.scan(file, opts)
+function M.get_project_rules(file, opts)
   opts = opts or {}
   local RULES_DIR = opts.rules_dir or ".cursor/rules"
   local ROOT_MARKERS = opts.root_markers or { ".git" }

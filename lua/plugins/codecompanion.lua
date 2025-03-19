@@ -59,7 +59,7 @@ return {
                 },
                 content = function(context)
                   local rules = require("config.codecompanion.rules")
-                  local rule_files = rules.scan(context.filename, {
+                  local rule_files = rules.get_project_rules(context.filename, {
                     root_markers = { ".git" },
                     rules_dir = ".cursor/rules",
                     gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
