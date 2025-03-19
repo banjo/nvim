@@ -90,22 +90,26 @@ local function parse_glob_patterns(content)
   return patterns
 end
 
+--- Get the content of a rule file
+---@param file string The path to the rule file
+---@param content string[] The content of the rule file
+local function to_rule_file(file, content)
+  local patterns = parse_glob_patterns(content)
+  local filtered_content = extract_content_after_frontmatter(content)
+  return { file = file, patterns = patterns, content = filtered_content }
+end
+
 --- Scans a directory for rule files and extracts their patterns and content
 --- @param rules_dir string The directory path to scan for rule files
 --- @return RuleFile[] array of rule files found
-local function scan_rule_files(rules_dir)
+local function scan_local_files(rules_dir)
   local files = {}
   local scan_files = vim.fn.glob(rules_dir .. "/*", false, true)
 
   for _, file in ipairs(scan_files) do
     if vim.fn.isdirectory(file) == 0 then
       local content = vim.fn.readfile(file)
-      local patterns = parse_glob_patterns(content)
-
-      if #patterns > 0 then
-        local filtered_content = extract_content_after_frontmatter(content)
-        table.insert(files, { file = file, patterns = patterns, content = filtered_content })
-      end
+      table.insert(files, to_rule_file(file, content))
     end
   end
 
@@ -121,6 +125,10 @@ local function get_matching_rule_files(rule_files, file_name_from_root_dir)
 
   for _, file_entry in ipairs(rule_files) do
     if file_entry.patterns then
+      if #file_entry.patterns == 0 then
+        table.insert(files, file_entry)
+      end
+
       for _, pattern in ipairs(file_entry.patterns) do
         local lpg = vim.glob.to_lpeg(pattern)
         local is_match = lpg:match(file_name_from_root_dir)
@@ -134,9 +142,50 @@ local function get_matching_rule_files(rule_files, file_name_from_root_dir)
   return files
 end
 
+---@param gist_id string The ID of the gist to fetch_gist_files
+---@param source_file_name string The name of the source file
+---@return RuleFile[] Array of rule files found
+local function fetch_gist_files(gist_id, source_file_name)
+  local url = "https://api.github.com/gists/" .. gist_id
+  local response = vim.fn.systemlist({ "curl", "-s", url })
+  local gist_content = table.concat(response, "\n")
+  local body = vim.fn.json_decode(gist_content)
+
+  local files = {}
+
+  if body and body.files then
+    for _, file_data in pairs(body.files) do
+      local file_content = vim.fn.split(file_data.content, "\n")
+      local file = to_rule_file(source_file_name, file_content)
+      table.insert(files, file)
+    end
+  else
+    print("Error: Invalid gist response or no files found")
+  end
+
+  return files
+end
+
+---@param gist_ids string[] Array of gist IDs to fetch rules front
+---@param source_file_name string The name of the source file
+---@return RuleFile[] Array of rule files found
+local function get_gist_rule_files(gist_ids, source_file_name)
+  local gists = {}
+
+  for _, gist_id in ipairs(gist_ids) do
+    local files = fetch_gist_files(gist_id, source_file_name)
+    for _, file in ipairs(files) do
+      table.insert(gists, file)
+    end
+  end
+
+  return gists
+end
+
 ---@class CodeCompanionRulesOptions
 ---@field rules_dir? string Directory containing rule files (default: ".cursor/rules")
 ---@field root_markers? string[] Markers to identify the project root (default: {".git"})
+---@field gist_ids? string[] Array of gist IDs to fetch rules from
 
 ---@class RuleFile
 ---@field file string Path to the rule file
@@ -150,6 +199,7 @@ function M.scan(file, opts)
   opts = opts or {}
   local RULES_DIR = opts.rules_dir or ".cursor/rules"
   local ROOT_MARKERS = opts.root_markers or { ".git" }
+  local GIST_IDS = opts.gist_ids or {}
 
   local root_dir = find_root_dir(file, ROOT_MARKERS)
 
@@ -160,9 +210,19 @@ function M.scan(file, opts)
     return {}
   end
 
-  local rule_files = scan_rule_files(absolute_rules_dir)
   local file_name_from_root_dir = file:sub(#root_dir + 2)
-  return get_matching_rule_files(rule_files, file_name_from_root_dir)
+  local local_rule_files = scan_local_files(absolute_rules_dir)
+  if #GIST_IDS == 0 then
+    return get_matching_rule_files(local_rule_files, file_name_from_root_dir)
+  end
+
+  local gist_rule_files = get_gist_rule_files(GIST_IDS, file_name_from_root_dir)
+  for _, gist_file in pairs(gist_rule_files) do
+    table.insert(local_rule_files, gist_file)
+  end
+
+  print(vim.inspect(local_rule_files))
+  return get_matching_rule_files(local_rule_files, file_name_from_root_dir)
 end
 
 ---@class FormatOpts
