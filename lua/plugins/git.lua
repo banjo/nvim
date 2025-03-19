@@ -2,7 +2,6 @@ return {
   {
     "akinsho/git-conflict.nvim",
     version = "*",
-    -- config = true,
     config = function()
       vim.keymap.set("n", "<leader>gxc", "<Plug>(git-conflict-ours)", { desc = "current (ours)" })
       vim.keymap.set("n", "<leader>gxi", "<Plug>(git-conflict-theirs)", { desc = "incoming (theirs)" })
@@ -22,6 +21,21 @@ return {
           current = "CustomDiffIncoming",
         },
         default_mappings = false,
+      })
+    end,
+  },
+  {
+    "pwntester/octo.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("octo").setup({
+        ssh_aliases = {
+          gh_evinova = "github.com",
+        },
       })
     end,
   },
