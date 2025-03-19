@@ -122,7 +122,8 @@ local function get_matching_rule_files(rule_files, file_name_from_root_dir)
   for _, file_entry in ipairs(rule_files) do
     if file_entry.patterns then
       for _, pattern in ipairs(file_entry.patterns) do
-        local is_match = vim.fn.glob(pattern):find(file_name_from_root_dir)
+        local lpg = vim.glob.to_lpeg(pattern)
+        local is_match = lpg:match(file_name_from_root_dir)
         if is_match then
           table.insert(files, file_entry)
         end
