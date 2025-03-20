@@ -64,12 +64,7 @@ return {
                     rules_dir = ".cursor/rules",
                     gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
                   })
-                  local content = rules.format(rule_files, {
-                    prefix = "Here is context for the current file: \n\n---",
-                    separator = "\n\n---\n",
-                    suffix = "\n\n---\n",
-                  })
-
+                  local content = rules.format(rule_files)
                   return [[#buffer]] .. "\n\n" .. content
                 end,
               },

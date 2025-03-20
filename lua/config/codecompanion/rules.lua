@@ -243,10 +243,13 @@ end
 ---@param rule_files RuleFile[] Array of rule files found
 ---@param opts FormatOpts? Options for formatting the output
 function M.format(rule_files, opts)
-  opts = opts or {}
-  opts.prefix = opts.prefix or "Here is context for the current file: \n\n---"
-  opts.suffix = opts.suffix or "---\n\n"
-  opts.separator = opts.separator or "\n---\n\n"
+  local defaults = {
+    prefix = "Here is context for the current file, separated by `---`: \n\n---",
+    suffix = "\n\n---\n\n The following is the user prompt: \n\n---\n\n",
+    separator = "\n\n---\n\n",
+  }
+
+  opts = vim.tbl_deep_extend("force", defaults, opts or {})
 
   if #rule_files == 0 then
     return ""
