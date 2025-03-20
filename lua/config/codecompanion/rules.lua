@@ -197,34 +197,37 @@ end
 ---@param opts? ProjectRulesOptions Configuration options
 ---@return RuleFile[] Array of rule files found
 function M.get_project_rules(file, opts)
-  opts = opts or {}
-  local RULES_DIR = opts.rules_dir or ".cursor/rules"
-  local ROOT_MARKERS = opts.root_markers or { ".git" }
-  local GIST_IDS = opts.gist_ids or {}
-  local ENABLE_LOCAL = opts.enable_local or true
+  local default_opts = {
+    rules_dir = ".cursor/rules",
+    root_markers = { ".git" },
+    gist_ids = {},
+    enable_local = true,
+  }
 
-  local root_dir = find_root_dir(file, ROOT_MARKERS)
+  opts = vim.tbl_deep_extend("force", default_opts, opts or {})
 
-  local absolute_rules_dir = root_dir .. "/" .. RULES_DIR
+  local root_dir = find_root_dir(file, opts.root_markers)
 
-  if vim.fn.isdirectory(absolute_rules_dir) == 0 and ENABLE_LOCAL then
+  local absolute_rules_dir = root_dir .. "/" .. opts.rules_dir
+
+  if vim.fn.isdirectory(absolute_rules_dir) == 0 and opts.enable_local then
     vim.api.nvim_err_writeln("Rules directory does not exist")
     return {}
   end
 
   local files = {}
 
-  if ENABLE_LOCAL then
+  if opts.enable_local then
     files = scan_local_files(absolute_rules_dir)
   end
 
   local file_name_from_root_dir = file:sub(#root_dir + 2)
 
-  if #GIST_IDS == 0 then
+  if #opts.gist_ids == 0 then
     return get_matching_rule_files(files, file_name_from_root_dir)
   end
 
-  local gist_rule_files = get_gist_rule_files(GIST_IDS, file_name_from_root_dir)
+  local gist_rule_files = get_gist_rule_files(opts.gist_ids, file_name_from_root_dir)
   for _, gist_file in pairs(gist_rule_files) do
     table.insert(files, gist_file)
   end
