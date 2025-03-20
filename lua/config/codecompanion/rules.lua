@@ -185,8 +185,8 @@ end
 ---@class ProjectRulesOptions
 ---@field rules_dir? string Directory containing rule files (default: ".cursor/rules")
 ---@field root_markers? string[] Markers to identify the project root (default: {".git"})
----@field gist_ids? string[] Array of gist IDs to fetch rules from
----@field enable_local? boolean Enable local scan of rule files
+---@field gist_ids? string[] Array of gist IDs to fetch rules from (default: {})
+---@field enable_local? boolean Enable local scan of rule files (default: true)
 
 ---@class RuleFile
 ---@field file string Path to the rule file
@@ -207,10 +207,10 @@ function M.get_project_rules(file, opts)
   opts = vim.tbl_deep_extend("force", default_opts, opts or {})
 
   local root_dir = find_root_dir(file, opts.root_markers)
-
   local absolute_rules_dir = root_dir .. "/" .. opts.rules_dir
+  local has_gists = #opts.gist_ids > 0
 
-  if vim.fn.isdirectory(absolute_rules_dir) == 0 and opts.enable_local then
+  if vim.fn.isdirectory(absolute_rules_dir) == 0 and opts.enable_local and not has_gists then
     vim.api.nvim_err_writeln("Rules directory does not exist")
     return {}
   end
