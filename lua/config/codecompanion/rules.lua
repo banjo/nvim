@@ -186,6 +186,7 @@ end
 ---@field rules_dir? string Directory containing rule files (default: ".cursor/rules")
 ---@field root_markers? string[] Markers to identify the project root (default: {".git"})
 ---@field gist_ids? string[] Array of gist IDs to fetch rules from
+---@field enable_local? boolean Enable local scan of rule files
 
 ---@class RuleFile
 ---@field file string Path to the rule file
@@ -200,29 +201,35 @@ function M.get_project_rules(file, opts)
   local RULES_DIR = opts.rules_dir or ".cursor/rules"
   local ROOT_MARKERS = opts.root_markers or { ".git" }
   local GIST_IDS = opts.gist_ids or {}
+  local ENABLE_LOCAL = opts.enable_local or true
 
   local root_dir = find_root_dir(file, ROOT_MARKERS)
 
   local absolute_rules_dir = root_dir .. "/" .. RULES_DIR
 
-  if vim.fn.isdirectory(absolute_rules_dir) == 0 then
+  if vim.fn.isdirectory(absolute_rules_dir) == 0 and ENABLE_LOCAL then
     vim.api.nvim_err_writeln("Rules directory does not exist")
     return {}
   end
 
+  local files = {}
+
+  if ENABLE_LOCAL then
+    files = scan_local_files(absolute_rules_dir)
+  end
+
   local file_name_from_root_dir = file:sub(#root_dir + 2)
-  local local_rule_files = scan_local_files(absolute_rules_dir)
+
   if #GIST_IDS == 0 then
-    return get_matching_rule_files(local_rule_files, file_name_from_root_dir)
+    return get_matching_rule_files(files, file_name_from_root_dir)
   end
 
   local gist_rule_files = get_gist_rule_files(GIST_IDS, file_name_from_root_dir)
   for _, gist_file in pairs(gist_rule_files) do
-    table.insert(local_rule_files, gist_file)
+    table.insert(files, gist_file)
   end
 
-  print(vim.inspect(local_rule_files))
-  return get_matching_rule_files(local_rule_files, file_name_from_root_dir)
+  return get_matching_rule_files(files, file_name_from_root_dir)
 end
 
 ---@class FormatOpts
