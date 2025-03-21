@@ -53,7 +53,7 @@ return {
             references = {},
             prompts = {
               {
-                role = "system",
+                role = "user",
                 opts = {
                   contains_code = true,
                 },

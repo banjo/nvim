@@ -258,6 +258,7 @@ function M.format(rule_files, opts)
   local contents = {}
   for _, rule_file in ipairs(rule_files) do
     local file_content = table.concat(rule_file.content, "\n")
+    file_content = file_content:gsub("#", "-")
     table.insert(contents, file_content)
   end
 
