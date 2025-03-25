@@ -5,6 +5,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "j-hui/fidget.nvim",
+      { "banjo/contextfiles.nvim" },
     },
     init = function()
       require("config.codecompanion.fidget-spinner"):init()
@@ -58,13 +59,12 @@ return {
                   contains_code = true,
                 },
                 content = function(context)
-                  local rules = require("config.codecompanion.rules")
-                  local rule_files = rules.get_project_rules(context.filename, {
+                  local ctx = require("contextfiles.extensions.codecompanion")
+                  local content = ctx.get(context.filename, {
                     root_markers = { ".git" },
                     rules_dir = ".cursor/rules",
                     gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
                   })
-                  local content = rules.format(rule_files)
                   return [[#buffer]] .. "\n\n" .. content
                 end,
               },
