@@ -60,7 +60,7 @@ return {
                     rules_dir = ".cursor/rules",
                     gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
                   })
-                  return [[#buffer]] .. "\n\n" .. content
+                  return [[#buffer @full_stack_dev]] .. "\n\n" .. content
                 end,
               },
             },
@@ -80,12 +80,6 @@ return {
                 content = [[#buffer]],
               },
             },
-            -- references = {
-            --   {
-            --     type = "file",
-            --     path = ".github/copilot-instructions.md",
-            --   },
-            -- },
           },
         },
         adapters = {
