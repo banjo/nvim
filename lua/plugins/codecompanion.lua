@@ -5,7 +5,8 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "j-hui/fidget.nvim",
-      { "banjo/contextfiles.nvim" },
+      "banjo/contextfiles.nvim",
+      "ravitemer/mcphub.nvim",
     },
     init = function()
       require("config.codecompanion.fidget-spinner"):init()
@@ -26,12 +27,6 @@ return {
               ignore_system_prompt = false,
               contains_code = true,
             },
-            -- references = {
-            --   {
-            --     type = "file",
-            --     path = ".github/copilot-instructions.md",
-            --   },
-            -- },
             prompts = {
               {
                 role = "user",
@@ -138,6 +133,18 @@ return {
                 end,
                 opts = {
                   contains_code = false,
+                },
+              },
+            },
+            tools = {
+              ["mcp"] = {
+                -- calling it in a function would prevent mcphub from being loaded before it's needed
+                callback = function()
+                  return require("mcphub.extensions.codecompanion")
+                end,
+                description = "Call tools and resources from the MCP Servers",
+                opts = {
+                  requires_approval = false,
                 },
               },
             },
