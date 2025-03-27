@@ -12,6 +12,10 @@ vim.keymap.del("n", "<leader>fT")
 -- Guess indentation based on the file
 vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "[c]ode [i]ndentation" })
 
+-- remove boring ones
+vim.keymap.del("n", "<leader>k")
+vim.keymap.del("n", "<leader>K")
+
 -- set filetype=json
 vim.keymap.set("n", "<leader>ftj", "<cmd>set ft=json<CR>", { desc = "[f]ile [t]ype [j]son" })
 
@@ -268,3 +272,19 @@ vim.keymap.set("n", "<leader>fo", function()
     })
     :find()
 end, { desc = "[f]iles [o]ther (related)" })
+
+vim.keymap.set("n", "<leader>R", function()
+  local plugins = require("lazy").plugins()
+  local loader = require("lazy.core.loader")
+
+  local total = 0
+  for _, plugin in ipairs(plugins) do
+    if plugin.dev == true then
+      loader.reload(plugin.name)
+      total = total + 1
+    end
+  end
+
+  local str = "Reloaded " .. total .. " plugins"
+  vim.notify(str, vim.log.levels.INFO)
+end, { desc = "reload dev plugins", remap = true, noremap = true })
