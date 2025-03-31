@@ -1,3 +1,27 @@
+local function pick_script()
+  local npm = require("utils.npm")
+
+  local current_dir = vim.fn.getcwd()
+  local package = npm.get_package_file({ dir = current_dir })
+
+  if not package then
+    vim.notify("No package.json found", vim.log.levels.ERROR)
+    return require("dap").ABORT
+  end
+
+  local scripts = npm.get_all_scripts(package)
+
+  local label_fn = function(script)
+    return script
+  end
+
+  local co, ismain = coroutine.running()
+  local ui = require("dap.ui")
+  local pick = (co and not ismain) and ui.pick_one or ui.pick_one_sync
+  local result = pick(scripts, "Select script", label_fn)
+  return result or require("dap").ABORT
+end
+
 return {
   "mfussenegger/nvim-dap",
 
@@ -5,6 +29,8 @@ return {
     local dap = require("dap")
     -- copied from LazyVim
     local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+
+    local current_file = vim.fn.expand("%:t")
 
     -- Add new base configurations, override the default ones
     for _, language in ipairs(js_filetypes) do
@@ -29,7 +55,7 @@ return {
           cwd = "${workspaceFolder}",
         },
         {
-          name = "tsx",
+          name = "tsx (" .. current_file .. ")",
           type = "node",
           request = "launch",
           program = "${file}",
@@ -38,6 +64,22 @@ return {
           console = "integratedTerminal",
           internalConsoleOptions = "neverOpen",
           skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        },
+        {
+          type = "node",
+          request = "launch",
+          name = "unify-mono: ecoa-pod",
+          runtimeExecutable = "pnpm",
+          runtimeArgs = { "run", "start:ecoa-jobs-be" },
+          cwd = "${workspaceFolder}",
+        },
+        {
+          type = "node",
+          request = "launch",
+          name = "pick script (pnpm)",
+          runtimeExecutable = "pnpm",
+          runtimeArgs = { "run", pick_script },
+          cwd = "${workspaceFolder}",
         },
         -- Divider for the launch.json derived configs
         {
