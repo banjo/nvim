@@ -13,7 +13,6 @@ vim.keymap.del("n", "<leader>fT")
 vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "[c]ode [i]ndentation" })
 
 -- remove boring ones
-vim.keymap.del("n", "<leader>k")
 vim.keymap.del("n", "<leader>K")
 
 -- set filetype=json
