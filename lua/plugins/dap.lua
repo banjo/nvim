@@ -1,15 +1,15 @@
 local function pick_script()
-  local npm = require("utils.npm")
+  local pilot = require("package-pilot")
 
   local current_dir = vim.fn.getcwd()
-  local package = npm.get_package_file({ dir = current_dir })
+  local package = pilot.find_package_file({ dir = current_dir })
 
   if not package then
     vim.notify("No package.json found", vim.log.levels.ERROR)
     return require("dap").ABORT
   end
 
-  local scripts = npm.get_all_scripts(package)
+  local scripts = pilot.get_all_scripts(package)
 
   local label_fn = function(script)
     return script

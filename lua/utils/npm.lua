@@ -51,7 +51,7 @@ end
 
 ---@param opts SearchParams
 ---@return string|nil
-local function get_package_file(opts)
+local function find_package_file(opts)
   local candidate_packages = get_candidate_package_files(opts)
   -- go through candidate package files from closest to the file to least close
   for _, package in ipairs(candidate_packages) do
@@ -63,7 +63,7 @@ local function get_package_file(opts)
   return nil
 end
 
-local function get_package_manager(package_file)
+local function detect_package_manager(package_file)
   local package_dir = vim.fs.dirname(package_file)
   for mgr, lockfiles in pairs(mgr_lockfiles) do
     if
@@ -110,11 +110,13 @@ local function get_run_command(package_manager)
   if not cmd then
     return run_commands.npm
   end
+
+  return cmd
 end
 
 return {
   get_all_scripts = get_all_scripts,
-  get_package_file = get_package_file,
-  get_package_manager = get_package_manager,
+  find_package_file = find_package_file,
+  detect_package_manager = detect_package_manager,
   get_run_command = get_run_command,
 }
