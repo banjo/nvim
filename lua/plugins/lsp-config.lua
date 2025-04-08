@@ -10,25 +10,23 @@ return {
       opts.inlay_hints = opts.inlay_hints or {}
       opts.inlay_hints.enabled = false
 
-      -- Configure servers
+      -- Configure servers (be specific to not mess with other settings)
       opts.servers = opts.servers or {}
-      opts.servers.vtsls = {
-        settings = {
-          typescript = {
-            preferences = {
-              includeCompletionsForModuleExports = true,
-              includeCompletionsForImportStatements = true,
-              importModuleSpecifier = "non-relative",
-              -- autoImportFileExcludePatterns = {
-              --   "dist/*",
-              --   "@radix-ui/*",
-              --   "lucide-react",
-              -- },
-            },
-          },
+      opts.servers.vtsls = opts.servers.vtsls or {}
+      opts.servers.vtsls.settings = opts.servers.vtsls.settings or {}
+      opts.servers.vtsls.settings.typescript = {
+        preferences = {
+          includeCompletionsForModuleExports = true,
+          includeCompletionsForImportStatements = true,
+          importModuleSpecifier = "non-relative",
+          -- autoImportFileExcludePatterns = {
+          --   "dist/*",
+          --   "@radix-ui/*",
+          --   "lucide-react",
+          -- },
         },
       }
-
+      --
       -- Configure setup functions
       opts.setup = opts.setup or {}
       opts.setup.eslint = function()
