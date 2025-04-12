@@ -113,7 +113,7 @@ return {
 
     opts.view = {
       -- Explicitly request documentation.
-      docs = { auto_open = false },
+      docs = { auto_open = true },
     }
 
     -- use all sources but excluded ones to remove boring completions
