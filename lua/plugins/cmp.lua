@@ -36,9 +36,9 @@ return {
     local luasnip = require("luasnip")
     local cmp = require("cmp")
 
-    -- opts.completion = {
-    --   autocomplete = false,
-    -- }
+    opts.completion = {
+      autocomplete = false,
+    }
 
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
