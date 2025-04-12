@@ -1,3 +1,24 @@
+local function determine_import_style()
+  local project_dir = vim.fn.getcwd()
+  local current_project_name = vim.fn.fnamemodify(project_dir, ":t")
+
+  local relative_import_projects = {
+    "unify-mono",
+  }
+
+  local import_style = "non-relative"
+
+  for _, project_name in ipairs(relative_import_projects) do
+    local lowercase_match = string.lower(current_project_name) == string.lower(project_name)
+    if lowercase_match then
+      import_style = "relative"
+      break
+    end
+  end
+
+  return import_style
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -14,11 +35,15 @@ return {
       opts.servers = opts.servers or {}
       opts.servers.vtsls = opts.servers.vtsls or {}
       opts.servers.vtsls.settings = opts.servers.vtsls.settings or {}
+
+      local import_style = determine_import_style()
+      vim.notify("Import style: " .. import_style, vim.log.levels.INFO, { title = "LSP" })
+
       opts.servers.vtsls.settings.typescript = {
         preferences = {
           includeCompletionsForModuleExports = true,
           includeCompletionsForImportStatements = true,
-          importModuleSpecifier = "non-relative",
+          importModuleSpecifier = import_style,
           -- autoImportFileExcludePatterns = {
           --   "dist/*",
           --   "@radix-ui/*",
