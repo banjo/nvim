@@ -44,11 +44,10 @@ return {
           includeCompletionsForModuleExports = true,
           includeCompletionsForImportStatements = true,
           importModuleSpecifier = import_style,
-          -- autoImportFileExcludePatterns = {
-          --   "dist/*",
-          --   "@radix-ui/*",
-          --   "lucide-react",
-          -- },
+          autoImportFileExcludePatterns = {
+            "@radix-ui/*",
+            "lucide-react",
+          },
         },
       }
       --
