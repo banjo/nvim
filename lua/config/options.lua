@@ -19,7 +19,7 @@ vim.filetype.add({
 vim.g.snacks_animate = false
 
 -- Use nvim with plguins from lazyvim
-vim.g.lazyvim_cmp = "nvim-cmp"
+-- vim.g.lazyvim_cmp = "nvim-cmp"
 
 -- allow logging with :LspLog
 -- vim.lsp.set_log_level("debug")
