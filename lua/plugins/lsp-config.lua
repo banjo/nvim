@@ -36,6 +36,14 @@ return {
       opts.servers.vtsls = opts.servers.vtsls or {}
       opts.servers.vtsls.settings = opts.servers.vtsls.settings or {}
 
+      -- Add typos-lsp to the servers table
+      opts.servers.typos_lsp = {
+        cmd_env = { RUST_LOG = "error" },
+        init_options = {
+          diagnosticSeverity = "Info", -- Set log level to "Info"
+        },
+      }
+
       local import_style = determine_import_style()
       vim.notify("Import style: " .. import_style, vim.log.levels.INFO, { title = "LSP" })
 
