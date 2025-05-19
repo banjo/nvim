@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")
 
+-- Paste without overwriting the default register
+vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true })
+
 -- Guess indentation based on the file
 vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "[c]ode [i]ndentation" })
 
