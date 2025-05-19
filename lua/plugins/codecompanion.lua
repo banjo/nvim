@@ -15,6 +15,33 @@ return {
       local codecompanion = require("codecompanion")
 
       codecompanion.setup({
+        extensions = {
+          contextfiles = {
+            opts = {
+              slash_command = {
+                enabled = true,
+                name = "context",
+                ctx_opts = {
+                  context_dir = ".cursor/rulessss",
+                  root_markers = { ".git" },
+                  enable_local = false,
+                  gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
+                },
+                format_opts = {
+                  ---@param context_file ContextFiles.ContextFile the context file to prepend the prefix
+                  prefix = function(context_file)
+                    return string.format(
+                      "Please follow the rules located at `%s`:",
+                      vim.fn.fnamemodify(context_file.file, ":.")
+                    )
+                  end,
+                  suffix = "",
+                  separator = "",
+                },
+              },
+            },
+          },
+        },
         prompt_library = {
           ["default"] = {
             strategy = "chat",
@@ -31,37 +58,6 @@ return {
               {
                 role = "user",
                 content = [[#buffer]],
-              },
-            },
-          },
-          ["dynamic"] = {
-            strategy = "chat",
-            description = "The default prompt with nice context",
-            opts = {
-              short_name = "dynamic",
-              auto_submit = false,
-              user_prompt = false,
-              is_slash_cmd = true,
-              ignore_system_prompt = false,
-              contains_code = true,
-              stop_context_insertion = true,
-            },
-            references = {},
-            prompts = {
-              {
-                role = "user",
-                opts = {
-                  contains_code = true,
-                },
-                content = function(context)
-                  local ctx = require("contextfiles.extensions.codecompanion")
-                  local content = ctx.get(context.filename, {
-                    root_markers = { ".git" },
-                    rules_dir = ".cursor/rules",
-                    gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
-                  })
-                  return [[#buffer @full_stack_dev]] .. "\n\n" .. content
-                end,
               },
             },
           },
@@ -87,7 +83,9 @@ return {
             return require("codecompanion.adapters").extend("copilot", {
               schema = {
                 model = {
-                  default = "claude-3.7-sonnet",
+                  -- models
+                  -- https://github.com/olimorris/codecompanion.nvim/blob/6d8d355f402a304eb2b4f2052ebfd53f05ba5784/doc/usage/chat-buffer/agents.md?plain=1#L116
+                  -- default = "gpt-4.1",
                 },
               },
             })
@@ -130,18 +128,6 @@ return {
                 },
               },
             },
-            tools = {
-              ["mcp"] = {
-                -- calling it in a function would prevent mcphub from being loaded before it's needed
-                callback = function()
-                  return require("mcphub.extensions.codecompanion")
-                end,
-                description = "Call tools and resources from the MCP Servers",
-                opts = {
-                  requires_approval = false,
-                },
-              },
-            },
           },
           inline = {
             adapter = "copilot",
@@ -172,14 +158,6 @@ return {
           require("codecompanion").actions({})
         end,
         desc = "[a]i [c]ommands",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>ad",
-        function()
-          require("codecompanion").prompt("dynamic")
-        end,
-        desc = "[a]i [d]ynamic prompt",
         mode = { "n", "v" },
       },
       {
