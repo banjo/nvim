@@ -1,6 +1,10 @@
 return {
   "sindrets/diffview.nvim",
   config = function()
+    -- Update color for DiffView
+    vim.api.nvim_set_hl(0, "DiffChange", { bg = "#f1fa8c", fg = "#282a36" }) -- yellow bg, dark text
+    vim.api.nvim_set_hl(0, "DiffText", { bg = "#ffb86c", fg = "#282a36", bold = true }) -- orange bg, dark text, bold
+
     vim.keymap.set("n", "<leader>gdx", "<cmd>tabc<CR>", { desc = "close" })
     vim.keymap.set("n", "<leader>gdr", "<cmd>DiffviewFileHistory<cr>", { desc = "repo history" })
     vim.keymap.set("n", "<leader>gdf", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "file history" })
