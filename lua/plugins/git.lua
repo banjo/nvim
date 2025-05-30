@@ -3,13 +3,13 @@ return {
     "akinsho/git-conflict.nvim",
     version = "*",
     config = function()
-      vim.keymap.set("n", "<leader>gxc", "<Plug>(git-conflict-ours)", { desc = "current (ours)" })
-      vim.keymap.set("n", "<leader>gxi", "<Plug>(git-conflict-theirs)", { desc = "incoming (theirs)" })
-      vim.keymap.set("n", "<leader>gxb", "<Plug>(git-conflict-both)", { desc = "both" })
-      vim.keymap.set("n", "<leader>gxn", "<Plug>(git-conflict-none)", { desc = "none" })
-      vim.keymap.set("n", "[x", "<Plug>(git-conflict-prev-conflict)", { desc = "previous git conflict" })
-      vim.keymap.set("n", "]x", "<Plug>(git-conflict-next-conflict)", { desc = "next git conflict" })
-      vim.keymap.set("n", "<leader>gxq", "<cmd>GitConflictListQf<CR>", { desc = "quicklist" })
+      vim.keymap.set("n", "<leader>gxc", "<Plug>(git-conflict-ours)", { desc = "Current (Ours)" })
+      vim.keymap.set("n", "<leader>gxi", "<Plug>(git-conflict-theirs)", { desc = "Incoming (Theirs)" })
+      vim.keymap.set("n", "<leader>gxb", "<Plug>(git-conflict-both)", { desc = "Both" })
+      vim.keymap.set("n", "<leader>gxn", "<Plug>(git-conflict-none)", { desc = "None" })
+      vim.keymap.set("n", "[x", "<Plug>(git-conflict-prev-conflict)", { desc = "Previous Conflict" })
+      vim.keymap.set("n", "]x", "<Plug>(git-conflict-next-conflict)", { desc = "Next Conflict" })
+      vim.keymap.set("n", "<leader>gxq", "<cmd>GitConflictListQf<CR>", { desc = "Quicklist" })
 
       vim.keymap.set("n", "<leader>gxs", function()
         local actions = {
@@ -28,7 +28,7 @@ return {
           return
         end
         require("git-conflict").choose(actions[mark.opts.hl_group])
-      end, { desc = "select under cursor" })
+      end, { desc = "Select Under Cursor" })
 
       -- Define custom highlight groups for diff
       vim.api.nvim_set_hl(0, "CustomDiffCurrent", { fg = "#f8f8f2", bg = "#2a7a40" })

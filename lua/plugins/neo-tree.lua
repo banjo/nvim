@@ -31,6 +31,7 @@ return {
           ["h"] = { "toggle_node" },
           ["l"] = { "toggle_node" },
           ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+          -- Aider related mappings are handled in aider.lua via opts function
         },
       },
     },
@@ -45,23 +46,23 @@ return {
       function()
         require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), position = "left" })
       end,
-      desc = "[f]ind [e]xplorer",
+      desc = "Find Explorer",
     },
     { "<leader>E", false },
-    { "<leader>e", "<leader>fe", desc = "[e]xplorer", remap = true },
+    { "<leader>e", "<leader>fe", desc = "Explorer", remap = true },
     {
       "<leader>ge",
       function()
         require("neo-tree.command").execute({ source = "git_status", toggle = true })
       end,
-      desc = "[g]it [e]xplorer",
+      desc = "Git Explorer",
     },
     {
       "<leader>be",
       function()
         require("neo-tree.command").execute({ source = "buffers", toggle = true })
       end,
-      desc = "[b]uffer [e]xplorer",
+      desc = "Buffer Explorer",
     },
   },
 }

@@ -27,7 +27,7 @@ return {
     })
     -- === Suggested Keymaps: ===
     vim.keymap.set("n", "<leader>ss", ":Namu symbols<cr>", {
-      desc = "[s]earch [s]ymbols (namu)",
+      desc = "Search Symbols Namu",
       silent = true,
       noremap = true,
     })

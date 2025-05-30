@@ -5,13 +5,13 @@ return {
     vim.api.nvim_set_hl(0, "DiffChange", { bg = "#f1fa8c", fg = "#282a36" }) -- yellow bg, dark text
     vim.api.nvim_set_hl(0, "DiffText", { bg = "#ffb86c", fg = "#282a36", bold = true }) -- orange bg, dark text, bold
 
-    vim.keymap.set("n", "<leader>gdx", "<cmd>tabc<CR>", { desc = "close" })
-    vim.keymap.set("n", "<leader>gdr", "<cmd>DiffviewFileHistory<cr>", { desc = "repo history" })
-    vim.keymap.set("n", "<leader>gdf", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "file history" })
-    vim.keymap.set("v", "<leader>gdR", "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", { desc = "range history" })
-    vim.keymap.set("n", "<leader>gdl", "<Cmd>.DiffviewFileHistory --follow<CR>", { desc = "line history" })
+    vim.keymap.set("n", "<leader>gdx", "<cmd>tabc<CR>", { desc = "Close" })
+    vim.keymap.set("n", "<leader>gdr", "<cmd>DiffviewFileHistory<cr>", { desc = "Repo History" })
+    vim.keymap.set("n", "<leader>gdf", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "File History" })
+    vim.keymap.set("v", "<leader>gdR", "<Esc><Cmd>'<,'>DiffviewFileHistory --follow<CR>", { desc = "Range History" })
+    vim.keymap.set("n", "<leader>gdl", "<Cmd>.DiffviewFileHistory --follow<CR>", { desc = "Line History" })
 
-    vim.keymap.set("n", "<leader>gdd", "<cmd>DiffviewOpen<cr>", { desc = "diff" })
+    vim.keymap.set("n", "<leader>gdd", "<cmd>DiffviewOpen<cr>", { desc = "Diff" })
 
     local function get_default_branch_name()
       local res = vim.system({ "git", "rev-parse", "--verify", "main" }, { capture_output = true }):wait()
@@ -21,12 +21,12 @@ return {
     -- Diff against remote master branch
     vim.keymap.set("n", "<leader>gdm", function()
       vim.cmd("DiffviewOpen HEAD..origin/" .. get_default_branch_name())
-    end, { desc = "diff against origin/master" })
+    end, { desc = "Diff Origin/Master" })
 
     -- Diff against develop
     vim.keymap.set("n", "<leader>gdD", function()
       vim.cmd("DiffviewOpen HEAD..origin/develop")
-    end, { desc = "diff against develop" })
+    end, { desc = "Diff Develop" })
 
     -- Diff against custom branch with Telescope branch picker
     vim.keymap.set("n", "<leader>gdb", function()
@@ -108,6 +108,6 @@ return {
           }),
         })
         :find()
-    end, { desc = "diff against remote branch" })
+    end, { desc = "Diff Remote Branch" })
   end,
 }

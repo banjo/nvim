@@ -4,7 +4,7 @@
 -- "n", "<c-/>", lazyterm, { desc = "Terminal (Root Dir)" }
 
 -- General
-vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "[f]ile [n]ew" })
+vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "New File" })
 
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")
@@ -13,13 +13,13 @@ vim.keymap.del("n", "<leader>fT")
 vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true })
 
 -- Guess indentation based on the file
-vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "[c]ode [i]ndentation" })
+vim.keymap.set("n", "<leader>ci", "<cmd>GuessIndent<CR>", { desc = "Guess Indentation" })
 
 -- remove boring ones
 vim.keymap.del("n", "<leader>K")
 
 -- set filetype=json
-vim.keymap.set("n", "<leader>ftj", "<cmd>set ft=json<CR>", { desc = "[f]ile [t]ype [j]son" })
+vim.keymap.set("n", "<leader>ftj", "<cmd>set ft=json<CR>", { desc = "Set Filetype JSON" })
 
 -- set filetype with telescope picker
 vim.keymap.set("n", "<leader>ftc", function()
@@ -74,7 +74,7 @@ vim.keymap.set("n", "<leader>ftc", function()
       end,
     })
     :find()
-end, { desc = "[f]ile [t]ype [c]ustom" })
+end, { desc = "Set Filetype Custom" })
 
 -- Remove one character without yanking
 vim.keymap.set("n", "x", '"x')
@@ -84,21 +84,21 @@ vim.keymap.set("n", "x", '"x')
 
 vim.keymap.set("n", "<leader>gg", function()
   Snacks.lazygit({ cwd = LazyVim.root.git() })
-end, { desc = "lazy[g]it" })
+end, { desc = "Lazygit" })
 vim.keymap.del("n", "<leader>gG")
-vim.keymap.set("n", "<leader>gb", Snacks.git.blame_line, { desc = "[g]it [b]lame line" })
+vim.keymap.set("n", "<leader>gb", Snacks.git.blame_line, { desc = "Git Blame Line" })
 vim.keymap.set("n", "<leader>gf", function()
   local git_path = vim.api.nvim_buf_get_name(0)
   Snacks.lazygit({ args = { "-f", vim.trim(git_path) } })
-end, { desc = "lazy[g]it [f]ile history" })
+end, { desc = "Lazygit File History" })
 
 vim.keymap.set("n", "<leader>gl", function()
   Snacks.lazygit({ args = { "log" }, cwd = LazyVim.root.git() })
-end, { desc = "lazy[g]it [l]og" })
+end, { desc = "Lazygit Log" })
 vim.keymap.del("n", "<leader>gL")
 
 -- reload lsp
-vim.keymap.set("n", "<leader>rl", "<cmd>LspRestart<CR>", { desc = "[r]estart lsp" })
+vim.keymap.set("n", "<leader>rl", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
 
 -- Terminal
 -- vim.keymap.set("n", "<C-/>", "<Nop>", { noremap = true, silent = true })
@@ -108,8 +108,8 @@ vim.keymap.set("n", "<C-_>", function()
 end, { noremap = true, silent = true })
 
 -- Navigation
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "scroll up and center" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "scroll down and center" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up Center" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down Center" })
 
 -- grug-far
 vim.keymap.set("n", "<leader>sR", function()
@@ -134,30 +134,30 @@ vim.keymap.set("n", "<leader>sf", function()
       paths = vim.fn.expand("%:p:h"), -- Path to the current file's directory
     },
   })
-end, { desc = "[s]earch [f]ile (grug-far)" })
+end, { desc = "Search File Grug-Far" })
 
 -- Telescope
 vim.keymap.set("n", "<leader><leader>", function()
   require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
-end, { noremap = true, silent = true, desc = "Smart open" })
+end, { noremap = true, silent = true, desc = "Smart Open" })
 
 -- set resume here as it needs to override spectre
 vim.keymap.set(
   "n",
   "<leader>sr",
   "<cmd>Telescope resume<cr>",
-  { noremap = true, silent = true, desc = "[s]earch [r]esume" }
+  { noremap = true, silent = true, desc = "Search Resume" }
 )
 
 vim.keymap.set("n", "<C-p>", function()
   require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
-end, { noremap = true, silent = true, desc = "Smart open" })
+end, { noremap = true, silent = true, desc = "Smart Open" })
 
 -- buffers
 vim.keymap.set("n", "öb", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "äb", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 -- delete all buffers
-vim.keymap.set("n", "<leader>ba", "<cmd>bufdo bd<cr>", { desc = "Delete all buffers" })
+vim.keymap.set("n", "<leader>ba", "<cmd>bufdo bd<cr>", { desc = "Delete All Buffers" })
 
 -- Quickfix
 vim.keymap.set("n", "öq", vim.cmd.cprev, { desc = "Previous Quickfix" })
@@ -179,8 +179,8 @@ vim.keymap.set("n", "äw", diagnostic_goto(true, "WARN"), { desc = "Next Warning
 vim.keymap.set("n", "öw", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- Noice
-vim.keymap.set("n", "<leader>xn", "<cmd>Noice<CR>", { desc = "[n]oice messages" })
-vim.keymap.set("n", "<leader>xe", "<cmd>NoiceErrors<CR>", { desc = "noice [e]rrors" })
+vim.keymap.set("n", "<leader>xn", "<cmd>Noice<CR>", { desc = "Noice Messages" })
+vim.keymap.set("n", "<leader>xe", "<cmd>NoiceErrors<CR>", { desc = "Noice Errors" })
 
 -- treewalker (with iterm2)
 vim.api.nvim_set_keymap("n", "˛", ":Treewalker Left<CR>", { noremap = true, silent = true })
@@ -198,7 +198,7 @@ end
 vim.api.nvim_set_keymap("n", "<F3>", "", { noremap = true, callback = showKeyPress })
 
 -- Run eslint fix all with command
-vim.keymap.set("n", "<leader>ce", "<cmd>:EslintFixAll<CR>", { desc = "[e]slintFixAll" })
+vim.keymap.set("n", "<leader>ce", "<cmd>:EslintFixAll<CR>", { desc = "Eslint Fix All" })
 
 -- Find related files (e.g., Service.ts -> Service.test.ts, Service.mock.ts)
 vim.keymap.set("n", "<leader>fo", function()
@@ -273,7 +273,7 @@ vim.keymap.set("n", "<leader>fo", function()
       end,
     })
     :find()
-end, { desc = "[f]iles [o]ther (related)" })
+end, { desc = "Find Related Files" })
 
 vim.keymap.set("n", "<leader>R", function()
   local plugins = require("lazy").plugins()
@@ -289,4 +289,4 @@ vim.keymap.set("n", "<leader>R", function()
 
   local str = "Reloaded " .. total .. " plugins"
   vim.notify(str, vim.log.levels.INFO)
-end, { desc = "reload dev plugins", remap = true, noremap = true })
+end, { desc = "Reload Dev Plugins", remap = true, noremap = true })

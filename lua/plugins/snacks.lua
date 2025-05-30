@@ -81,7 +81,7 @@ return {
               function(self)
                 executeTsCommand()
               end,
-              desc = "Source buffer",
+              desc = "Source Buffer",
               mode = { "n", "x" },
             },
           },

@@ -141,11 +141,11 @@ return {
         function()
           require("codecompanion").prompt("def")
         end,
-        desc = "[a]i ch[a]t",
+        desc = "AI Chat",
         mode = { "n", "v" },
       },
       {
-        desc = "[a]i [q]uick chat",
+        desc = "AI Quick Chat",
         "<leader>aq",
         function()
           require("codecompanion").prompt("inline")
@@ -157,7 +157,7 @@ return {
         function()
           require("codecompanion").actions({})
         end,
-        desc = "[a]i [c]ommands",
+        desc = "AI Commands",
         mode = { "n", "v" },
       },
       {
@@ -165,7 +165,7 @@ return {
         function()
           require("codecompanion").toggle()
         end,
-        desc = "[a]i [t]oggle chat",
+        desc = "AI Toggle Chat",
         mode = { "n", "v" },
       },
     },

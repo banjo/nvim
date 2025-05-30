@@ -17,7 +17,7 @@ return {
         })
       end,
       mode = { "n", "v" },
-      desc = "[s]earch [R]eplace (grug-far)",
+      desc = "Search Replace Grug-Far",
     },
   },
 }

@@ -125,7 +125,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
         noremap = true,
         silent = true,
         buffer = 0,
-        desc = "Close codecompanion buffer",
+        desc = "Close CodeCompanion Buffer",
       })
     end
   end,
