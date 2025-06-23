@@ -85,7 +85,7 @@ return {
                 model = {
                   -- models
                   -- https://github.com/olimorris/codecompanion.nvim/blob/6d8d355f402a304eb2b4f2052ebfd53f05ba5784/doc/usage/chat-buffer/agents.md?plain=1#L116
-                  -- default = "gpt-4.1",
+                  default = "gpt-4.1",
                 },
               },
             })
