@@ -22,7 +22,7 @@ return {
                 enabled = true,
                 name = "context",
                 ctx_opts = {
-                  context_dir = ".cursor/rulessss",
+                  context_dir = ".cursor/rules",
                   root_markers = { ".git" },
                   enable_local = false,
                   gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
@@ -58,6 +58,32 @@ return {
               {
                 role = "user",
                 content = [[#buffer]],
+              },
+            },
+          },
+          ["lsp"] = {
+            strategy = "chat",
+            description = "A prompt that explains and then calls the #lsp variable.",
+            opts = {
+              short_name = "lsp",
+              auto_submit = false,
+              user_prompt = false,
+              is_slash_cmd = true,
+              ignore_system_prompt = false,
+              contains_code = true,
+            },
+            prompts = {
+              {
+                role = "user",
+                content = [[Analyze the current buffer using LSP (Language Server Protocol) features. Identify all errors present and explain each one with a clear and concise description.]],
+              },
+              {
+                role = "user",
+                content = [[#lsp]],
+              },
+              {
+                role = "user",
+                content = [[\n\n]],
               },
             },
           },
@@ -166,6 +192,14 @@ return {
           require("codecompanion").toggle()
         end,
         desc = "AI Toggle Chat",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>ae",
+        function()
+          require("codecompanion").prompt("lsp")
+        end,
+        desc = "AI Explain LSP Error",
         mode = { "n", "v" },
       },
     },
