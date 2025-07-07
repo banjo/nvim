@@ -54,11 +54,23 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
   callback = function()
+    -- List of repo names where ESLint should NOT run on save
+    local excluded_repos = {}
+
+    local cwd = vim.fn.getcwd()
+    local repo_name = vim.fn.fnamemodify(cwd, ":t")
+
+    for _, excluded in ipairs(excluded_repos) do
+      if repo_name == excluded then
+        return
+      end
+    end
+
     local eslint_config_files =
       { ".eslintrc", ".eslintrc.js", ".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml", "eslint.config.js" }
     local function eslint_installed()
       for _, config_file in ipairs(eslint_config_files) do
-        if vim.fn.filereadable(vim.fn.getcwd() .. "/" .. config_file) == 1 then
+        if vim.fn.filereadable(cwd .. "/" .. config_file) == 1 then
           return true
         end
       end
