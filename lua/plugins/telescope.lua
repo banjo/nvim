@@ -10,12 +10,18 @@ return {
       "debugloop/telescope-undo.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
+      "nvim-telescope/telescope-node-modules.nvim",
     },
     keys = {
       {
         "<leader>se",
         ":Telescope file_browser file_browser path=%:p:h=%:p:h<cr>",
         desc = "Search Explorer Files",
+      },
+      {
+        "<leader>sN",
+        "<cmd>Telescope node_modules list<cr>",
+        desc = "Search node_modules",
       },
       {
         "<leader>fr",
@@ -165,6 +171,7 @@ return {
       require("telescope").load_extension("undo")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("node_modules")
     end,
   },
 }
