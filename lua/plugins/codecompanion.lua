@@ -57,7 +57,10 @@ return {
             prompts = {
               {
                 role = "user",
-                content = [[#buffer]],
+                content = [[
+#{buffer}
+@{insert_edit_into_file}
+]],
               },
             },
           },
