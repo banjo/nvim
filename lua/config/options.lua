@@ -23,3 +23,6 @@ vim.g.snacks_animate = false
 
 -- allow logging with :LspLog
 -- vim.lsp.set_log_level("debug")
+
+-- Need config for prettier
+vim.g.lazyvim_prettier_needs_config = true
