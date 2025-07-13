@@ -24,8 +24,8 @@ return {
                 ctx_opts = {
                   context_dir = ".cursor/rules",
                   root_markers = { ".git" },
-                  enable_local = false,
-                  gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
+                  enable_local = true,
+                  -- gist_ids = { "1c9b5faca0c89f9877eccc88bc6b3cc0" },
                 },
                 format_opts = {
                   ---@param context_file ContextFiles.ContextFile the context file to prepend the prefix
