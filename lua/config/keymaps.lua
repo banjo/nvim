@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "New File" })
 vim.keymap.del("n", "<leader>ft")
 vim.keymap.del("n", "<leader>fT")
 
+-- Save the current buffer without triggering autocommands
+vim.keymap.set("n", "<leader>W", ":noautocmd w<CR>", { desc = "Write file without triggering autocommands" })
+
 -- Paste without overwriting the default register
 vim.keymap.set("x", "p", '"_dP', { noremap = true, silent = true })
 
