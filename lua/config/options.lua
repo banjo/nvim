@@ -26,3 +26,8 @@ vim.g.snacks_animate = false
 
 -- Need config for prettier
 vim.g.lazyvim_prettier_needs_config = true
+
+-- Make neovim-remote work
+if vim.fn.has("nvim") == 1 and vim.fn.executable("nvr") == 1 then
+  vim.env.GIT_EDITOR = "nvr --remote-tab-wait +'set bufhidden=delete'"
+end
