@@ -2,6 +2,11 @@ return {
   {
     "folke/which-key.nvim",
     opts = {
+      win = {
+        height = {
+          max = math.huge,
+        },
+      },
       preset = "modern",
       spec = {
         { "<leader>a", group = "ai" },
