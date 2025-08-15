@@ -60,6 +60,22 @@ return {
       { "<leader>fR", false },
       { "<leader>sG", false },
       { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Search Grep" },
+      {
+        "<leader>sG",
+        LazyVim.pick("live_grep", {
+          root = false,
+          additional_args = function()
+            local constants = require("utils.constants")
+            local args = {}
+            for _, pat in ipairs(constants.shared_glob_patterns) do
+              table.insert(args, "--glob")
+              table.insert(args, pat)
+            end
+            return args
+          end,
+        }),
+        desc = "Search Grep (with filters)",
+      },
       { "<leader>fc", LazyVim.pick.config_files(), desc = "Find Config Files" },
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Find Buffer" },
       -- search

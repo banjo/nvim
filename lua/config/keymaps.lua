@@ -1,3 +1,5 @@
+local constants = require("utils.constants")
+
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
@@ -118,14 +120,15 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down Center" })
 vim.keymap.set("n", "<leader>sR", function()
   local grug = require("grug-far")
   local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+  local extFilter = ext and ext ~= "" and "*." .. ext or nil
   grug.open({
     transient = true,
     prefills = {
-      filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+      filesFilter = table.concat(vim.tbl_extend("force", constants.shared_glob_patterns, { extFilter }), "\n"),
     },
   })
 end, {
-  desc = "[s]earch [R]eplace (grug-far)",
+  desc = "Search replace (grug-far)",
 })
 
 vim.keymap.set("n", "<leader>sf", function()
