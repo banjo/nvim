@@ -112,6 +112,25 @@ vim.keymap.set("n", "<C-_>", function()
   Snacks.terminal()
 end, { noremap = true, silent = true })
 
+-- a terminal command to run "npx jest <current_file>"
+vim.keymap.set("n", "<leader>tn", function()
+  local current_file = vim.fn.expand("%:p")
+  if current_file == "" then
+    vim.notify("No file to test", vim.log.levels.WARN)
+    return
+  end
+  local cmd = "npx jest --watch " .. current_file
+  Snacks.terminal(cmd, {
+    auto_close = false,
+    win = { position = "bottom" },
+    on_exit = function(term)
+      if term and term.job_id then
+        vim.fn.jobstop(term.job_id)
+      end
+    end,
+  })
+end, { desc = "Test current file (terminal)" })
+
 -- Navigation
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up Center" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down Center" })
