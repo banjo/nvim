@@ -1,0 +1,59 @@
+{
+  "useEffect": {
+    "prefix": "uef",
+    "body": [
+      "useEffect(() => {",
+      "  $1",
+      "}, [$2]);"
+    ],
+    "description": "React useEffect hook (no cleanup)"
+  },
+  "Functional component": {
+    "prefix": "fc",
+    "body": [
+      "const ${1:ComponentName} = () => {",
+      "  return (",
+      "    <div>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+    "description": "Functional component (arrow)"
+  },
+  "Functional component with props": {
+    "prefix": "fcp",
+    "body": [
+      "type Prop = {};",
+      "",
+      "const ${1:ComponentName} = (prop: Prop) => {",
+      "  return (",
+      "    ${0}",
+      "  );",
+      "};",
+      "",
+      "export default ${1:ComponentName};"
+    ],
+    "description": "Minimal React arrow component with empty Prop type"
+  },
+  "Custom hook": {
+    "prefix": "rh",
+    "body": [
+      "export const use${1:HookName} = () => {",
+      "  ${0}",
+      "};"
+    ],
+    "description": "Custom hook as arrow function without props and single-line export"
+  },
+  "Custom hook with props": {
+    "prefix": "rhp",
+    "body": [
+      "type Prop = {};",
+      "",
+      "export const use${1:HookName} = (prop: Prop) => {",
+      "  ${0}",
+      "};"
+    ],
+    "description": "Custom hook as arrow function with empty Prop type and single-line export"
+  }
+}
