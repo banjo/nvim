@@ -66,6 +66,23 @@ return {
           skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
         },
         {
+          name = "Debug Jest (current file)",
+          type = "node",
+          request = "launch",
+          runtimeExecutable = "node",
+          runtimeArgs = {
+            "--inspect-brk",
+            "${workspaceFolder}/node_modules/.bin/jest",
+            "${file}",
+            "--runInBand",
+          },
+          cwd = "${workspaceFolder}",
+          console = "integratedTerminal",
+          internalConsoleOptions = "neverOpen",
+          skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        },
+
+        {
           type = "node",
           request = "launch",
           name = "unify-mono: ecoa-pod",
