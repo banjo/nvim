@@ -122,7 +122,7 @@ vim.keymap.set("n", "<leader>tn", function()
   local cmd = "npx jest --watch " .. current_file
   Snacks.terminal(cmd, {
     auto_close = false,
-    win = { position = "bottom" },
+    win = { position = "right" },
     on_exit = function(term)
       if term and term.job_id then
         vim.fn.jobstop(term.job_id)
