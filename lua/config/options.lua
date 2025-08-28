@@ -34,3 +34,6 @@ end
 
 -- fix error in volvo apps?
 vim.opt.fixendofline = true
+
+-- nice ui for diff view
+vim.opt.diffopt = { "internal", "filler", "closeoff", "linematch:40" }
