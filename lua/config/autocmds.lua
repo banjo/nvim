@@ -142,3 +142,34 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end
   end,
 })
+
+vim.api.nvim_create_user_command("CopyOpenBuffers", function()
+  local result = {}
+  table.insert(
+    result,
+    "> This markdown contains the contents of all open buffers in Neovim. Each buffer is shown as a section with its name and contents."
+  )
+  table.insert(result, "")
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_get_option(bufnr, "buflisted") then
+      local name = vim.api.nvim_buf_get_name(bufnr)
+      local fname
+      if name == "" then
+        fname = string.format("unnamed-%d", bufnr)
+      else
+        fname = vim.fn.fnamemodify(name, ":t")
+      end
+      local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+      table.insert(result, string.format("## %s", fname))
+      table.insert(result, "```")
+      for _, line in ipairs(lines) do
+        table.insert(result, line)
+      end
+      table.insert(result, "```")
+      table.insert(result, "") -- blank line between buffers
+    end
+  end
+  local text = table.concat(result, "\n")
+  vim.fn.setreg("+", text)
+  vim.notify("Copied all open buffers to clipboard in Markdown format!", vim.log.levels.INFO)
+end, {})
