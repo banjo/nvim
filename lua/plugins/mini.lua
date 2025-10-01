@@ -1,3 +1,3 @@
 return {
-  { "echasnovski/mini.pairs", enabled = true },
+  { "nvim-mini/mini.pairs", enabled = true },
 }
