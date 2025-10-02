@@ -51,37 +51,37 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -- Run eslint on save for ts and js files
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
-  callback = function()
-    -- List of repo names where ESLint should NOT run on save
-    local excluded_repos = {}
-
-    local cwd = vim.fn.getcwd()
-    local repo_name = vim.fn.fnamemodify(cwd, ":t")
-
-    for _, excluded in ipairs(excluded_repos) do
-      if repo_name == excluded then
-        return
-      end
-    end
-
-    local eslint_config_files =
-      { ".eslintrc", ".eslintrc.js", ".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml", "eslint.config.js" }
-    local function eslint_installed()
-      for _, config_file in ipairs(eslint_config_files) do
-        if vim.fn.filereadable(cwd .. "/" .. config_file) == 1 then
-          return true
-        end
-      end
-      return false
-    end
-
-    if eslint_installed() then
-      vim.cmd("EslintFixAll")
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
+--   callback = function()
+--     -- List of repo names where ESLint should NOT run on save
+--     local excluded_repos = {}
+--
+--     local cwd = vim.fn.getcwd()
+--     local repo_name = vim.fn.fnamemodify(cwd, ":t")
+--
+--     for _, excluded in ipairs(excluded_repos) do
+--       if repo_name == excluded then
+--         return
+--       end
+--     end
+--
+--     local eslint_config_files =
+--       { ".eslintrc", ".eslintrc.js", ".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml", "eslint.config.js" }
+--     local function eslint_installed()
+--       for _, config_file in ipairs(eslint_config_files) do
+--         if vim.fn.filereadable(cwd .. "/" .. config_file) == 1 then
+--           return true
+--         end
+--       end
+--       return false
+--     end
+--
+--     if eslint_installed() then
+--       vim.cmd("EslintFixAll")
+--     end
+--   end,
+-- })
 
 -- Format buffer when inline request is complete in CodeCompanion
 local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})

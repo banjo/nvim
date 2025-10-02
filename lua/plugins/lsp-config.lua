@@ -60,17 +60,17 @@ return {
       }
       --
       -- Configure setup functions
-      opts.setup = opts.setup or {}
-      opts.setup.eslint = function()
-        -- This is needed to remove the error with eslint (should work after nvim 0.11)
-        require("lazyvim.util").lsp.on_attach(function(client)
-          if client.name == "eslint" then
-            client.server_capabilities.documentFormattingProvider = true
-          elseif client.name == "tsserver" then
-            client.server_capabilities.documentFormattingProvider = false
-          end
-        end)
-      end
+      -- opts.setup = opts.setup or {}
+      -- opts.setup.eslint = function()
+      --   -- This is needed to remove the error with eslint (should work after nvim 0.11)
+      --   require("lazyvim.util").lsp.on_attach(function(client)
+      --     if client.name == "eslint" then
+      --       client.server_capabilities.documentFormattingProvider = true
+      --     elseif client.name == "tsserver" then
+      --       client.server_capabilities.documentFormattingProvider = false
+      --     end
+      --   end)
+      -- end
     end,
   },
 }
