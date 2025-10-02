@@ -6,12 +6,18 @@ return {
     },
     keymap = {
       preset = "super-tab",
-      -- TODO: REMOVE THIS AFTER THIS HAS BEEN MERGED: https://github.com/LazyVim/LazyVim/pull/6183
-      ["<Tab>"] = {
-        require("blink.cmp.keymap.presets").get("super-tab")["<Tab>"][1],
-        require("lazyvim.util.cmp").map({ "snippet_forward", "ai_accept" }),
-        "fallback",
-      },
+      -- ["<Tab>"] = {
+      --   "snippet_forward",
+      --   function() -- sidekick next edit suggestion
+      --     return require("sidekick").nes_jump_or_apply()
+      --   end,
+      --   require("blink.cmp.keymap.presets").get("super-tab")["<Tab>"][1],
+      --   require("lazyvim.util.cmp").map({ "snippet_forward", "ai_accept" }),
+      --   -- function() -- if you are using Neovim's native inline completions
+      --   --   return vim.lsp.inline_completion.get()
+      --   -- end,
+      --   "fallback",
+      -- },
     },
     completion = {
       menu = {
