@@ -98,6 +98,14 @@ return {
           runtimeArgs = { "run", pick_script },
           cwd = "${workspaceFolder}",
         },
+        {
+          type = "node",
+          request = "launch",
+          name = "pick script (npm)",
+          runtimeExecutable = "npm",
+          runtimeArgs = { "run", pick_script },
+          cwd = "${workspaceFolder}",
+        },
         -- Divider for the launch.json derived configs
         {
           name = "----- ↓ launch.json configs ↓ -----",
