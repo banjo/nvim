@@ -23,10 +23,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
-      -- disable default K, and use timestamp preview instead
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = { "K", false }
-
       -- Set inlay hints
       opts.inlay_hints = opts.inlay_hints or {}
       opts.inlay_hints.enabled = false
