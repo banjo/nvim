@@ -37,3 +37,6 @@ vim.opt.fixendofline = true
 
 -- nice ui for diff view
 vim.opt.diffopt = { "internal", "filler", "closeoff", "linematch:40" }
+
+-- do not put ai in the cmp
+vim.g.ai_cmp = false
