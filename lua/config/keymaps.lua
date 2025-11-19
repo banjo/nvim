@@ -315,3 +315,6 @@ vim.keymap.set("n", "<leader>R", function()
   local str = "Reloaded " .. total .. " plugins"
   vim.notify(str, vim.log.levels.INFO)
 end, { desc = "Reload Dev Plugins", remap = true, noremap = true })
+
+-- treesj toggle
+vim.keymap.set("n", "<leader>j", require("treesj").toggle, { desc = "Toggle Treesj Split/Join" })
