@@ -114,12 +114,51 @@ end, { noremap = true, silent = true })
 
 -- a terminal command to run "npx jest <current_file>"
 vim.keymap.set("n", "<leader>tn", function()
+  local pilot = require("package-pilot")
+  local files = require("utils.files")
+
   local current_file = vim.fn.expand("%:p")
   if current_file == "" then
     vim.notify("No file to test", vim.log.levels.WARN)
     return
   end
-  local cmd = "npx jest --watch " .. current_file
+
+  -- Find package.json
+  local current_dir = vim.fn.getcwd()
+  local package_file = pilot.find_package_file({ dir = current_dir })
+  if not package_file then
+    vim.notify("No package.json found", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Load package.json
+  local package_data = files.load_json_file(package_file)
+  if not package_data then
+    vim.notify("Could not read package.json", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Detect jest or vitest
+  local has_jest = false
+  local has_vitest = false
+
+  local function has_dep(tbl, dep)
+    return tbl and tbl[dep] ~= nil
+  end
+
+  has_jest = has_dep(package_data.dependencies, "jest") or has_dep(package_data.devDependencies, "jest")
+  has_vitest = has_dep(package_data.dependencies, "vitest") or has_dep(package_data.devDependencies, "vitest")
+
+  local cmd
+  if has_vitest then
+    cmd = "npx vitest run --watch " .. current_file
+  elseif has_jest then
+    cmd = "npx jest --watch " .. current_file
+  else
+    vim.notify("Neither jest nor vitest found in dependencies", vim.log.levels.ERROR)
+    return
+  end
+
   Snacks.terminal(cmd, {
     auto_close = false,
     win = { position = "right" },
