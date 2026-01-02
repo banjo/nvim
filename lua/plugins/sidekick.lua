@@ -1,0 +1,68 @@
+local cli_name = "opencode"
+
+return {
+  "folke/sidekick.nvim",
+  opts = {
+    cli = {
+      opencode = {
+        cmd = { "opencode" },
+      },
+    },
+  },
+  keys = {
+    {
+      "<leader>aa",
+      function()
+        require("sidekick.cli").toggle({ name = cli_name, focus = true })
+      end,
+      desc = "Sidekick Toggle CLI",
+    },
+    {
+      "<leader>as",
+      function()
+        require("sidekick.cli").select()
+      end,
+      -- Or to select only installed tools:
+      -- require("sidekick.cli").select({ filter = { installed = true } })
+      desc = "Select CLI",
+    },
+    {
+      "<leader>ad",
+      function()
+        require("sidekick.cli").close()
+      end,
+      desc = "Detach a CLI Session",
+    },
+    {
+      "<leader>at",
+      function()
+        require("sidekick.cli").send({ msg = "{this}", name = cli_name })
+      end,
+      mode = { "x", "n" },
+      desc = "Send This",
+    },
+    {
+      "<leader>af",
+      function()
+        require("sidekick.cli").send({ msg = "{file}", name = cli_name })
+      end,
+      desc = "Send File",
+    },
+    {
+      "<leader>av",
+      function()
+        require("sidekick.cli").send({ msg = "{selection}", name = cli_name })
+      end,
+      mode = { "x" },
+      desc = "Send Visual Selection",
+    },
+    {
+      "<leader>ap",
+      function()
+        require("sidekick.cli").prompt({ name = cli_name })
+      end,
+      mode = { "n", "x" },
+      desc = "Sidekick Select Prompt",
+    },
+  },
+}
