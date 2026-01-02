@@ -150,10 +150,10 @@ vim.keymap.set("n", "<leader>tn", function()
   has_vitest = has_dep(package_data.dependencies, "vitest") or has_dep(package_data.devDependencies, "vitest")
 
   local cmd
-  if has_vitest then
-    cmd = "npx vitest run --watch " .. current_file
-  elseif has_jest then
+  if has_jest then
     cmd = "npx jest --watch " .. current_file
+  elseif has_vitest then
+    cmd = "npx vitest run --watch " .. current_file
   else
     vim.notify("Neither jest nor vitest found in dependencies", vim.log.levels.ERROR)
     return
