@@ -81,6 +81,23 @@ return {
           internalConsoleOptions = "neverOpen",
           skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
         },
+        {
+          name = "Debug vitest (current file)",
+          type = "node",
+          request = "launch",
+          runtimeExecutable = "npx",
+          runtimeArgs = {
+            "vitest",
+            "run",
+            "--inspect",
+            "--no-file-parallelism",
+            "${file}",
+          },
+          cwd = "${workspaceFolder}",
+          console = "integratedTerminal",
+          internalConsoleOptions = "neverOpen",
+          skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        },
 
         {
           type = "node",
