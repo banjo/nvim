@@ -59,7 +59,27 @@ return {
       { "<leader>fG", false },
       { "<leader>fR", false },
       { "<leader>sG", false },
-      { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Search Grep" },
+      {
+        "<leader>sg",
+        LazyVim.pick("live_grep", {
+          root = false,
+          additional_args = function()
+            local lock_files = {
+              "!**/package-lock.json",
+              "!**/yarn.lock",
+              "!**/pnpm-lock.yaml",
+              "!**/bun.lockb",
+            }
+            local args = {}
+            for _, pat in ipairs(lock_files) do
+              table.insert(args, "--glob")
+              table.insert(args, pat)
+            end
+            return args
+          end,
+        }),
+        desc = "Search Grep",
+      },
       {
         "<leader>sG",
         LazyVim.pick("live_grep", {
