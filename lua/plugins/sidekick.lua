@@ -7,6 +7,9 @@ return {
       opencode = {
         cmd = { "opencode" },
       },
+      prompts = {
+        propsToObject = "Refactor the props of the function of this: {this} into an object and update all references to the function accordingly.",
+      },
     },
   },
   keys = {
