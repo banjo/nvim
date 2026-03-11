@@ -37,6 +37,7 @@ return {
         cmd_env = { RUST_LOG = "error" },
         init_options = {
           diagnosticSeverity = "Info", -- Set log level to "Info"
+          config = "~/_typos.toml",
         },
       }
 
