@@ -6,6 +6,8 @@ return {
     },
     keymap = {
       preset = "super-tab",
+      -- keep copilot ghost; only hide blink menu on Esc
+      ["<Esc>"] = { "hide", "fallback" },
       -- ["<Tab>"] = {
       --   "snippet_forward",
       --   function() -- sidekick next edit suggestion
