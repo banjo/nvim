@@ -262,7 +262,7 @@ end
 vim.api.nvim_set_keymap("n", "<F3>", "", { noremap = true, callback = showKeyPress })
 
 -- Run eslint fix all with command
-vim.keymap.set("n", "<leader>ce", "<cmd>:EslintFixAll<CR>", { desc = "Eslint Fix All" })
+vim.keymap.set("n", "<leader>ce", "<cmd>:LspEslintFixAll<CR>", { desc = "Eslint Fix All" })
 
 -- Find related files (e.g., Service.ts -> Service.test.ts, Service.mock.ts)
 vim.keymap.set("n", "<leader>fo", function()
