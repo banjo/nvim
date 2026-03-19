@@ -1,3 +1,4 @@
+-- Checks if config repo is behind on startup; manual :NvimUpdateConfig pulls latest.
 local config_path = vim.fn.stdpath("config")
 
 local function notify(message, level)
