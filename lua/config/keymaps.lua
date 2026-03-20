@@ -359,9 +359,9 @@ end, { desc = "Reload Dev Plugins", remap = true, noremap = true })
 vim.keymap.set("n", "<leader>j", require("treesj").toggle, { desc = "Toggle Treesj Split/Join" })
 
 -- organize imports with lsp code action (with tsgo its needed, not with vtsls)
-vim.keymap.set("n", "<leader>co", function()
-  vim.lsp.buf.code_action({
-    context = { only = { "source.organizeImports" }, diagnostics = {} },
-    apply = true,
-  })
-end, { desc = "Organize Imports" })
+-- vim.keymap.set("n", "<leader>co", function()
+--   vim.lsp.buf.code_action({
+--     context = { only = { "source.organizeImports" }, diagnostics = {} },
+--     apply = true,
+--   })
+-- end, { desc = "Organize Imports" })

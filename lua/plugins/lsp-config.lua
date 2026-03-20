@@ -43,33 +43,33 @@ return {
               config = "~/_typos.toml",
             },
           },
-          vtsls = false,
-          -- vtsls = {
-          --   settings = {
-          --     typescript = {
-          --       preferences = {
-          --         includeCompletionsForModuleExports = true,
-          --         includeCompletionsForImportStatements = true,
-          --         autoImportFileExcludePatterns = {
-          --           "@radix-ui/*",
-          --           "lucide-react",
-          --         },
-          --       },
-          --     },
-          --   },
-          -- },
-          tsgo = {
-            init_options = {
-              preferences = {
-                includeCompletionsForModuleExports = true,
-                includeCompletionsForImportStatements = true,
-                autoImportFileExcludePatterns = {
-                  "@radix-ui/*",
-                  "lucide-react",
+          vtsls = {
+            settings = {
+              typescript = {
+                preferences = {
+                  includeCompletionsForModuleExports = true,
+                  includeCompletionsForImportStatements = true,
+                  autoImportFileExcludePatterns = {
+                    "@radix-ui/*",
+                    "lucide-react",
+                  },
                 },
               },
             },
           },
+          tsgo = false,
+          -- tsgo = {
+          --   init_options = {
+          --     preferences = {
+          --       includeCompletionsForModuleExports = true,
+          --       includeCompletionsForImportStatements = true,
+          --       autoImportFileExcludePatterns = {
+          --         "@radix-ui/*",
+          --         "lucide-react",
+          --       },
+          --     },
+          --   },
+          -- },
         },
       })
 
