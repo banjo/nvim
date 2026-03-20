@@ -228,6 +228,17 @@ vim.keymap.set("n", "öq", vim.cmd.cprev, { desc = "Previous Quickfix" })
 vim.keymap.set("n", "äq", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- Diagnostic
+-- override LazyVim default <leader>cd by adding borders and focusing the float window
+vim.keymap.set("n", "<leader>cd", function()
+  local _, win = vim.diagnostic.open_float({
+    border = "rounded",
+    scope = "line",
+  })
+  if win then
+    vim.api.nvim_set_current_win(win)
+  end
+end, { desc = "Line Diagnostics" })
+
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
