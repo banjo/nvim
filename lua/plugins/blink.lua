@@ -6,20 +6,11 @@ return {
     },
     keymap = {
       preset = "super-tab",
-      -- keep copilot ghost; only hide blink menu on Esc
-      ["<Esc>"] = { "hide", "fallback" },
-      -- ["<Tab>"] = {
-      --   "snippet_forward",
-      --   function() -- sidekick next edit suggestion
-      --     return require("sidekick").nes_jump_or_apply()
-      --   end,
-      --   require("blink.cmp.keymap.presets").get("super-tab")["<Tab>"][1],
-      --   require("lazyvim.util.cmp").map({ "snippet_forward", "ai_accept" }),
-      --   -- function() -- if you are using Neovim's native inline completions
-      --   --   return vim.lsp.inline_completion.get()
-      --   -- end,
-      --   "fallback",
-      -- },
+      ["<Tab>"] = {
+        require("lazyvim.util.cmp").map({ "ai_accept" }),
+        "fallback",
+      },
+      ["<CR>"] = { "accept", "fallback" },
     },
     completion = {
       menu = {
