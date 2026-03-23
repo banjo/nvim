@@ -6,8 +6,10 @@ return {
     },
     keymap = {
       preset = "super-tab",
+      -- Tab: accept AI suggestion > accept autocomplete > fallback
       ["<Tab>"] = {
         require("lazyvim.util.cmp").map({ "ai_accept" }),
+        "accept",
         "fallback",
       },
       ["<CR>"] = { "accept", "fallback" },
