@@ -1,88 +1,70 @@
 return {
-  enabled = false,
-  "NickvanDyke/opencode.nvim",
+  "nickjvandyke/opencode.nvim",
   dependencies = {
-    -- Recommended for better prompt input, and required to use opencode.nvim's embedded terminal — otherwise optional
-    { "folke/snacks.nvim", opts = { input = { enabled = true } } },
+    {
+      "folke/snacks.nvim",
+      optional = true,
+      opts = {
+        input = {},
+        picker = {
+          actions = {
+            opencode_send = function(...)
+              return require("opencode").snacks_picker_send(...)
+            end,
+          },
+          win = {
+            input = {
+              keys = {
+                ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+              },
+            },
+          },
+        },
+      },
+    },
   },
-  ---@type opencode.Opts
-  opts = {
-    -- Your configuration, if any — see lua/opencode/config.lua
-  },
+  config = function()
+    vim.g.opencode_opts = {}
+    vim.o.autoread = true
+  end,
   keys = {
     {
-      "<leader>AA",
-      function()
-        require("opencode").ask()
-      end,
-      desc = "Ask opencode",
-    },
-    {
-      "<leader>Aa",
-      function()
-        require("opencode").ask("@cursor: ")
-      end,
-      desc = "Ask opencode about this",
-      mode = "n",
-    },
-    {
-      "<leader>Aa",
-      function()
-        require("opencode").ask("@selection: ")
-      end,
-      desc = "Ask opencode about selection",
-      mode = "v",
-    },
-    {
-      "<leader>At",
+      "<leader>aa",
       function()
         require("opencode").toggle()
       end,
-      desc = "Toggle embedded opencode",
+      desc = "Toggle opencode",
+      mode = { "n", "t" },
     },
     {
-      "<leader>An",
+      "<leader>aq",
       function()
-        require("opencode").command("session_new")
+        require("opencode").ask("@this: ", { submit = true })
+      end,
+      desc = "Quick chat",
+      mode = { "n", "x" },
+    },
+    {
+      "<leader>ap",
+      function()
+        require("opencode").select()
+      end,
+      desc = "Prompt",
+      mode = { "n", "x" },
+    },
+    {
+      "<leader>as",
+      function()
+        require("opencode").command("session.select")
+      end,
+      desc = "Select session",
+    },
+    {
+      "<leader>an",
+      function()
+        require("opencode").command("session.new")
       end,
       desc = "New session",
-    },
-    {
-      "<leader>Ay",
-      function()
-        require("opencode").command("messages_copy")
-      end,
-      desc = "Copy last message",
-    },
-    {
-      "<S-C-u>",
-      function()
-        require("opencode").command("messages_half_page_up")
-      end,
-      desc = "Scroll messages up",
-    },
-    {
-      "<S-C-d>",
-      function()
-        require("opencode").command("messages_half_page_down")
-      end,
-      desc = "Scroll messages down",
-    },
-    {
-      "<leader>Ap",
-      function()
-        require("opencode").select_prompt()
-      end,
-      desc = "Select prompt",
-      mode = { "n", "v" },
-    },
-    -- Example: keymap for custom prompt
-    {
-      "<leader>Ae",
-      function()
-        require("opencode").prompt("Explain @cursor and its context")
-      end,
-      desc = "Explain code near cursor",
     },
   },
 }
