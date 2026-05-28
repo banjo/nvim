@@ -24,7 +24,19 @@ return {
     },
   },
   config = function()
-    vim.g.opencode_opts = {}
+    vim.g.opencode_opts = {
+      ask = {
+        completion = false,
+        snacks = {
+          win = {
+            b = {
+              completion = false,
+            },
+            on_buf = function() end,
+          },
+        },
+      },
+    }
     vim.o.autoread = true
   end,
   keys = {
