@@ -57,7 +57,7 @@ return {
               },
             },
           },
-          tsgo = false,
+          -- tsgo = false,
           -- tsgo = {
           --   init_options = {
           --     preferences = {
