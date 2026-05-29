@@ -385,7 +385,7 @@ vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Go to Right Window" 
 
 -- Auto-enter insert mode when focusing the opencode terminal
 vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "term://*",
+  pattern = "term://*opencode*",
   callback = function()
     vim.cmd("startinsert")
   end,
