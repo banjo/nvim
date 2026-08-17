@@ -103,7 +103,7 @@ end, { desc = "Lazygit Log" })
 vim.keymap.del("n", "<leader>gL")
 
 -- reload lsp
-vim.keymap.set("n", "<leader>rl", "<cmd>LspRestart<CR>", { desc = "Restart LSP" })
+vim.keymap.set("n", "<leader>rl", "<cmd>lsp restart<CR>", { desc = "Restart LSP" })
 
 -- Terminal
 -- vim.keymap.set("n", "<C-/>", "<Nop>", { noremap = true, silent = true })
