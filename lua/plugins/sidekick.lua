@@ -36,6 +36,10 @@ local function send_opencode(msg)
 end
 
 return {
+  -- Copilot is turned off on purpose: its language server used ~700 MB per nvim. The
+  -- ai.copilot and ai.sidekick LazyVim extras are removed and copilot-language-server is
+  -- uninstalled from mason (mason auto-starts every installed server). Without it, next
+  -- edit suggestions (<tab> below) are inactive; only the opencode CLI integration is used.
   "folke/sidekick.nvim",
   opts = {
     cli = {
