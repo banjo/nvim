@@ -173,3 +173,43 @@ vim.api.nvim_create_user_command("CopyOpenBuffers", function()
   vim.fn.setreg("+", text)
   vim.notify("Copied all open buffers to clipboard in Markdown format!", vim.log.levels.INFO)
 end, {})
+
+-- Stop language servers when this nvim has been unfocused for a while (e.g. another
+-- tmux workspace is active) to free memory, and start them again on focus.
+-- Needs `focus-events on` in tmux.
+local lsp_idle_group = vim.api.nvim_create_augroup("lsp_idle_stop", { clear = true })
+local lsp_idle_timer = assert(vim.uv.new_timer())
+local lsp_stopped_for_idle = false
+
+vim.api.nvim_create_autocmd("FocusLost", {
+  group = lsp_idle_group,
+  callback = function()
+    local minutes = vim.g.lsp_idle_stop_minutes or 10
+    lsp_idle_timer:start(
+      math.floor(minutes * 60 * 1000),
+      0,
+      vim.schedule_wrap(function()
+        local clients = vim.lsp.get_clients()
+        if #clients == 0 then
+          return
+        end
+        for _, client in ipairs(clients) do
+          client:stop()
+        end
+        lsp_stopped_for_idle = true
+      end)
+    )
+  end,
+})
+
+vim.api.nvim_create_autocmd("FocusGained", {
+  group = lsp_idle_group,
+  callback = function()
+    lsp_idle_timer:stop()
+    if lsp_stopped_for_idle then
+      lsp_stopped_for_idle = false
+      -- Re-runs only nvim's LSP attach autocmd for every buffer, not ftplugins
+      pcall(vim.cmd.doautoall, "nvim.lsp.enable FileType")
+    end
+  end,
+})
